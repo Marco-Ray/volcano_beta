@@ -34,7 +34,7 @@ const router = createRouter({
     }
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({ left: 0, top: 0 });
+        resolve({ left: 0, top: 0, behavior: 'smooth' });
       }, 600);
     });
   },

@@ -18,30 +18,33 @@
           </p>
         </div>
       </div>
-      <div id="btt-start" @click="start">START</div>
 
       <!-- video -->
-<!--      <video-player v-if="isShowVideo"-->
-<!--                    src="bg-video.mp4"-->
-<!--                    poster="bg-video-poster.png"-->
-<!--                    :loop="true"-->
-<!--                    :volume="0.6"-->
-<!--                    :autoplay="true"-->
-<!--                    :muted="true"-->
-<!--                    @error="closeVideo"-->
-<!--                    class="volcano-player"-->
-<!--      />-->
       <video autoplay muted loop id="myVideo">
         <source src="bg-video.mp4" type="video/mp4">
       </video>
 
-  </div>
+      <div class="scroll-down-btt animate__animated animate__flash animate__infinite animate__slower"
+           @click="scrollDown"
+      >
+        <img :src="IconScrolldown" alt="scroll down" class="icon scroll-down" />
+      </div>
+    </div>
+
+    <div id="conclusion">
+      <div class="scroll-up-btt animate__animated animate__flash animate__infinite animate__slower"
+           @click="scrollUp"
+      >
+        <img :src="IconScrolldown" alt="scroll up" class="icon scroll-up" />
+      </div>
+      <div id="btt-start" @click="start">START</div>
+    </div>
   </div>
 </template>
 
 <script>
 import 'video.js/dist/video-js.css';
-import IconVideo from '@/assets/Welcome/icon-video.png';
+import IconScrolldown from '@/assets/Welcome/icon-scrolldown.svg';
 
 export default {
   name: 'HomeView',
@@ -50,15 +53,18 @@ export default {
   data() {
     return {
       isShowVideo: true,
-      IconVideo: IconVideo,
+      IconScrolldown: IconScrolldown,
     };
   },
   methods: {
     start() {
       this.$router.push('/Statistics');
     },
-    closeVideo() {
-      this.isShowVideo = false;
+    scrollDown() {
+      document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth' });
+    },
+    scrollUp() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 };
@@ -68,7 +74,7 @@ export default {
 .home {
   width: 100vw;
   .container {
-    margin-top: hCalc(166);
+    height: 100vh;
     margin-left: wCalc(122);
     display: flex;
     flex-direction: column;
@@ -87,7 +93,19 @@ export default {
       z-index: -1;
     }
   }
-
+  .scroll-down-btt {
+    position: absolute;
+    bottom: hCalc(50);
+    left: 50%;
+    transform: translateX(-50%);
+    width: hCalc(57);
+    height: hCalc(57);
+    cursor: pointer;
+    .icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 
 #title {
@@ -112,27 +130,6 @@ export default {
   }
 }
 
-#btt-start {
-  margin-bottom: 20px;
-  width: wCalc(199);
-  height: wCalc(69);
-  border-radius: 12px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: white;
-  cursor: pointer;
-
-  line-height: fSizeCalc(69);
-  font-family: union_regular;
-  font-size: fSizeCalc(30);
-  color: white;
-
-  &:hover {
-    color: red;
-    border-color: red;
-  }
-}
-
 #myVideo {
   position: fixed;
   right: 0;
@@ -140,5 +137,51 @@ export default {
   min-width: 100%;
   min-height: 100%;
   z-index: -1;
+}
+
+
+#conclusion {
+  height: 100vh;
+  backdrop-filter: blur(6px);
+  position: relative;
+
+  .scroll-up-btt {
+    position: absolute;
+    top: hCalc(182);
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    width: hCalc(57);
+    height: hCalc(57);
+    cursor: pointer;
+    .icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  #btt-start {
+    position: absolute;
+    left: 50%;
+    bottom: hCalc(50);
+    transform: translateX(-50%);
+    margin-bottom: 20px;
+    width: wCalc(199);
+    height: wCalc(69);
+    border-radius: 12px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+    cursor: pointer;
+
+    line-height: fSizeCalc(69);
+    font-family: union_regular;
+    font-size: fSizeCalc(30);
+    color: white;
+
+    &:hover {
+      color: rgb(191, 95, 64);
+      border-color: rgb(191, 95, 64);
+    }
+  }
 }
 </style>

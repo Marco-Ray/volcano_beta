@@ -1,6 +1,6 @@
 <template>
-  <div class="nav-bar">
-    <div class="logo-box">
+  <div id="nav-bar">
+    <div class="logo-box" @click="goHome">
       <img :src="Logo" alt="logo" class="logo" />
     </div>
     <div class="menu-box">
@@ -34,11 +34,16 @@ export default {
       Logo: Logo,
     };
   },
+  methods: {
+    goHome() {
+      this.$router.push('/');
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-.nav-bar {
+#nav-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -54,6 +59,7 @@ export default {
 .logo-box {
   width: hCalc(60);
   height: hCalc(60);
+  cursor: pointer;
   .logo {
     width: 100%;
     height: 100%;
@@ -73,7 +79,6 @@ export default {
     letter-spacing: fSizeCalc(-0.28);
   }
 }
-
 
 ::v-deep .el-sub-menu__title {
   font-size: fSizeCalc(22) !important;

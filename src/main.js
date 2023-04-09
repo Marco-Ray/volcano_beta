@@ -6,6 +6,7 @@ import store from './store';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import '@/assets/fonts/fonts.css';
+import 'animate.css';
 
 createApp(App).use(store).use(router).use(ElementPlus)
   .mount('#app');
