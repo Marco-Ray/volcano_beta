@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     start() {
-      this.$router.push('/Statistics');
+      this.$router.push('/overview');
     },
     scrollDown() {
       document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth' });

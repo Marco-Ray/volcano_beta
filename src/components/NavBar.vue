@@ -8,17 +8,18 @@
                background-color="transparent"
                text-color="white"
                active-text-color="white"
+               @select="setActiveRouter"
       >
-        <el-menu-item index="/" >Home</el-menu-item>
-        <el-menu-item index="/Categories">Overview</el-menu-item>
-        <el-sub-menu intex="3" :teleported="false">
+        <el-menu-item index="1" :route="{ path: '/' }">Home</el-menu-item>
+        <el-menu-item index="2" :route="{ path: '/overview'}">Overview</el-menu-item>
+        <el-sub-menu index="3" :teleported="false">
           <template #title>Volcanoes</template>
           <el-menu-item index="3-1" :route="{ path: '/Volcano/Stratovolcano' }">Stratovolcano</el-menu-item>
           <el-menu-item index="3-2" :route="{ path: '/Volcano/Shield' }">Shield</el-menu-item>
           <el-menu-item index="3-3" :route="{ path: '/Volcano/Caldera' }">Caldera</el-menu-item>
           <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic+cone' }">Pyroclastic cone</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="/LearnMore">Learn More</el-menu-item>
+        <el-menu-item index="4">Learn More</el-menu-item>
       </el-menu>
     </div>
   </div>
@@ -103,6 +104,13 @@ export default {
   border-radius: 12px;
   &:hover {
     background-color: RGB(191, 95, 64) !important;
+  }
+  &.is-active {
+    background-color: unset !important;
+    border-bottom: unset !important;
+    &:hover {
+      background-color: RGB(191, 95, 64) !important;
+    }
   }
 }
 
