@@ -1,19 +1,30 @@
 <!-- eslint-disable vuejs-accessibility/click-events-have-key-events -->
 <template>
   <div class="sideBoard">
-    <div class="type">{{ type }}</div>
+    <div class="search-bar">
+      <el-input v-model="vName4search"
+                class="volcano-search"
+                placeholder="Enter the name of the volcano you are interested in"
+                :prefix-icon="Search"
+                @change="searchVolcano"
+      />
+    </div>
 
     <el-scrollbar class="scroll-viewer">
       <div class="cards_grid">
         <div v-for="(v, index) in volcano_json" :key="index" class="brief_card"
              @click="debounceMethods(setVolcano, index, 2000)">
           <div class="v_pic-box">
-            <img :src="v.image" alt="volcano image" class="v_pic"/>
+            <img :src="'https://volcano.si.edu/'+v['img_link']" alt="volcano image" class="v_pic"/>
           </div>
           <div class="v_name">{{ v.volcano_name }}</div>
         </div>
       </div>
     </el-scrollbar>
+
+    <div class="my-pagination">
+      <el-pagination v-model:current-page="currentPage" layout="prev, pager, next" :total="totalNum" :page-size="10"/>
+    </div>
 
     <div class="arrow-box">
       <div class="arrow"></div>
@@ -22,14 +33,21 @@
 </template>
 
 <script>
+import { searchVolcano } from '@/api/data';
+import { Search } from '@element-plus/icons-vue';
+
 export default {
   name: 'SideBoard',
   props: {
+    totalNum: Number,
     volcano_json: Array,
     type: String,
   },
   data() {
     return {
+      vName4search: '',
+      Search: Search,
+      currentPage: 1,
     };
   },
   methods: {
@@ -41,12 +59,37 @@ export default {
         center: true,
       });
     },
+    async searchVolcano() {
+      const name = this.vName4search;
+      await searchVolcano(name)
+        .then(() => {
+          this.$message(
+            {
+              message: 'Results found',
+              type: 'success',
+              center: true,
+            },
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  watch: {
+    currentPage(newPage) {
+      this.$emit('updatePage', newPage);
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .sideBoard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: wCalc(704);
   height: 10px;
   background-color: rgb(143, 143, 143);
@@ -74,19 +117,22 @@ export default {
     border-color: transparent transparent rgb(219, 219, 219) transparent ;
     transition: all .3s ease-out;
   }
-  .type {
+  .search-bar {
     margin-top: hCalc(47);
     display: none;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
     font-family: Roboto-Black;
     font-size: 48px;
   }
   .cards_grid {
-    padding: 0 wCalc(60);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
     grid-row-gap: 36px;
+    grid-column-gap: 36px;
   }
   .brief_card {
     display: none;
@@ -103,7 +149,7 @@ export default {
       .v_pic {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
     .v_name {
@@ -141,6 +187,15 @@ export default {
 .scroll-viewer {
   margin-top: 40px;
   height: hCalc(610);
+}
+
+.my-pagination {
+  margin: 20px 0;
+  ::v-deep .el-pagination {
+    --el-pagination-hover-color: rgb(191, 64, 95) !important;
+    --el-pagination-button-disabled-bg-color: transparent !important;
+    --el-pagination-bg-color: transparent !important;
+  }
 }
 
 @media screen and (max-width: 1650px) {

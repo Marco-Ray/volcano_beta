@@ -1,9 +1,21 @@
 import axios from 'axios';
 
-export function getVolcano(path) {
+export function getVolcanoTotalNum(path) {
+  return axios({
+    // url: `/fatfree/Volcano-Back/volcano/${path}/total`,
+    url: `/api/volcano/${path}/total`,
+    method: 'get',
+    urlType: 'api',
+  });
+}
+
+export function getVolcano(path, page) {
   return axios({
     // url: `/fatfree/Volcano-Back/volcano/${path}`,
     url: `/api/volcano/${path}`,
+    params: {
+      page: page,
+    },
     method: 'get',
     urlType: 'api',
   });
@@ -45,6 +57,15 @@ export function submitForm(formData) {
       'Content-Type': 'multipart/form-data',
     },
     data: formData,
+    urlType: 'api',
+  });
+}
+
+export function searchVolcano(name) {
+  return axios({
+    // url: `/fatfree/Volcano-Back/volcano/search/${name}`,
+    url: `/api/volcano/${name}`,
+    method: 'get',
     urlType: 'api',
   });
 }

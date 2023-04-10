@@ -19,7 +19,7 @@
           </div>
           <div class="vName">{{ current_volcano.volcano_name }}</div>
           <el-scrollbar>
-            <div class="vDescription">{{ current_volcano.Description }}</div>
+            <div class="vDescription">{{ current_volcano.description }}</div>
           </el-scrollbar>
           <div class="location" v-if="LatLng.lat && LatLng.lng">
             <l-map
@@ -36,7 +36,7 @@
         </div>
         <div class="session-r">
           <div class="vPhoto_box">
-            <img :src="current_volcano.image" alt="volcano photo" class="vPhoto"/>
+            <img :src="'https://volcano.si.edu/'+current_volcano['img_link']" alt="volcano photo" class="vPhoto"/>
           </div>
           <div class="tool-bar">
             <div class="like">
@@ -67,10 +67,13 @@
         </div>
       </div>
 
-      <side-board class="side_board" :volcano_json="volcano_json" :type="type"
-                  @setVolcano="setVolcano" />
+      <side-board class="side_board" :totalNum="totalNum" :volcano_json="volcano_json" :type="type"
+                  @setVolcano="setVolcano"
+                  @updatePage="updatePage"
+      />
     </div>
 
+<!--    report dialog-->
     <el-dialog v-model="dialogVisible" align-center width="40%">
       <template #header="{ titleId, titleClass }">
         <div class="my-header">
@@ -113,7 +116,7 @@ import IconUseful from '@/assets/Volcano/useful-active.png';
 import IconUsefulInactive from '@/assets/Volcano/useful-inactive.png';
 import IconReport from '@/assets/Volcano/icon-report.png';
 import IconError from '@/assets/Volcano/icon-error.png';
-import { getVolcano, likeVolcano, dislikeVolcano, submitForm } from '@/api/data';
+import { getVolcanoTotalNum, getVolcano, likeVolcano, dislikeVolcano, submitForm } from '@/api/data';
 import SideBoard from '@/components/Volcanoes/SideBoard.vue';
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -135,10 +138,10 @@ export default {
       iconReport: IconReport,
       iconError: IconError,
       current_volcano: {},
+      totalNum: 0,
       volcano_json: [],
       type: this.$route.params.type,
       liked: false,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       zoom: 8,
       LatLng: {},
       dialogVisible: false,
@@ -158,8 +161,17 @@ export default {
     goBack() {
       this.$router.push('/overview');
     },
-    async getVolcano(type) {
-      await getVolcano(type)
+    async getVolcanoTotalNum(type) {
+      await getVolcanoTotalNum(type)
+        .then((res) => {
+          this.totalNum = res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async getVolcano(type, page) {
+      await getVolcano(type, page)
         .then((res) => {
           if (res.data) {
             this.volcano_json = res.data;
@@ -174,6 +186,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    updatePage(newPage) {
+      this.getVolcano(this.type, newPage);
     },
     setVolcano(index) {
       this.current_volcano = this.volcano_json[index];
@@ -225,7 +240,8 @@ export default {
     },
   },
   created() {
-    this.getVolcano(this.type);
+    this.getVolcanoTotalNum(this.type);
+    this.getVolcano(this.type, 1);
   },
   watch: {
     // 监听路由是否变化
