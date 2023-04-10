@@ -4,9 +4,12 @@
     <!-- nav-bar /-->
     <div class="overview">
       <div class="container">
-        <el-tabs type="card" tabPosition="left">
+        <el-tabs type="card" tabPosition="left"
+                 v-model="type"
+        >
           <el-tab-pane
             v-for="(label, index) in labelOptions" :key="index"
+            :name="label.type"
           >
             <template #label>
               <span class="custom-tabs-label">
@@ -21,8 +24,8 @@
         </el-tabs>
 
         <div class="viewMore" @click="goFor">
-          <div>View More</div>
-          <div><img :src="arrowRight" alt="view more"/></div>
+          <div>View Volcanoes</div>
+          <div><img :src="arrowRight" alt="view volcanoes"/></div>
         </div>
       </div>
 
@@ -70,7 +73,7 @@ export default {
   },
   methods: {
     goFor() {
-      this.$router.push({ path: '/Volcano', query: { type: this.type } });
+      this.$router.push({ name: 'Volcano', params: { type: this.type } });
     },
   },
 };

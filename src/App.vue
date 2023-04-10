@@ -1,20 +1,29 @@
 <template>
   <nav-bar />
-  <router-view />
-
+  <router-view v-slot="{ Component, route }">
+    <transition :name="route.meta.transitionName" mode="out-in">
+      <component :is="Component" :key="route.path"/>
+    </transition>
+  </router-view>
   <!-- video -->
   <video autoplay muted loop id="myVideo">
-    <source src="bg-video.mp4" type="video/mp4">
+    <source :src="BgVideo" type="video/mp4">
   </video>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue';
+import BgVideo from '@/assets/bg-video.mp4';
 
 export default {
   name: 'app',
   components: {
     NavBar,
+  },
+  data() {
+    return {
+      BgVideo: BgVideo,
+    };
   },
 };
 </script>
@@ -49,5 +58,42 @@ html, body {
   min-width: 100%;
   min-height: 100%;
   z-index: -1;
+}
+
+// fade transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// slide-up transition
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.75s ease-out;
+}
+
+.slide-up-enter-to {
+  position: absolute;
+  bottom: 0;
+}
+
+.slide-up-enter-from {
+  position: absolute;
+  bottom: -100%;
+}
+
+.slide-up-leave-to {
+  position: absolute;
+  top: -100%;
+}
+
+.slide-up-leave-from {
+  position: absolute;
+  top: 0;
 }
 </style>

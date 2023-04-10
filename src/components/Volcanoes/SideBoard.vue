@@ -46,21 +46,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
 .sideBoard {
-  width: wCal(704);
+  width: wCalc(704);
   height: 10px;
   background-color: rgb(143, 143, 143);
   transition: all .3s ease-out;
   color: white;
   .arrow-box {
+    display: block !important;
     position: absolute;
     top: -20px;
     left: 50%;
@@ -82,13 +75,13 @@ export default {
     transition: all .3s ease-out;
   }
   .type {
-    margin-top: hCal(47);
+    margin-top: hCalc(47);
     display: none;
     font-family: Roboto-Black;
     font-size: 48px;
   }
   .cards_grid {
-    padding: 0 wCal(60);
+    padding: 0 wCalc(60);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -122,13 +115,20 @@ export default {
     }
   }
 
+  & > div {
+    display: none;
+  }
+
   &:hover {
-    height: hCal(800);
+    height: hCalc(800);
     .arrow {
       border-color: rgb(219, 219, 219) transparent transparent transparent;
     }
 
     .type, .brief_card {
+      display: block;
+    }
+    & > div {
       display: block;
     }
   }
@@ -140,7 +140,7 @@ export default {
 
 .scroll-viewer {
   margin-top: 40px;
-  height: hCal(610);
+  height: hCalc(610);
 }
 
 @media screen and (max-width: 1650px) {

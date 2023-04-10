@@ -8,5 +8,7 @@ import 'element-plus/dist/index.css';
 import '@/assets/fonts/fonts.css';
 import 'animate.css';
 
-createApp(App).use(store).use(router).use(ElementPlus)
+import debounce from '@/mixins/debounce';
+
+createApp(App).use(store).use(router).use(ElementPlus).mixin(debounce)
   .mount('#app');

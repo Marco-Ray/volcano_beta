@@ -9,24 +9,29 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
+    meta: {
+      transitionName: 'fade',
+    },
   },
   {
     path: '/overview',
     name: 'Overview',
     component: Overview,
+    meta: {
+      transitionName: 'fade',
+    },
   },
   {
-    path: '/Volcano/',
+    path: '/volcano/',
     name: 'VolcanoLayout',
     component: VolcanoViewLayout,
     children: [
       {
-        path: '/Volcano/:type',
+        path: '/volcano/:type',
         name: 'Volcano',
         component: VolcanoView,
         meta: {
-          index: 2,
-          transitionName: '',
+          transitionName: 'fade',
         },
       },
     ],

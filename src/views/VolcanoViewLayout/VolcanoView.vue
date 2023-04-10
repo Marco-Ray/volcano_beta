@@ -4,7 +4,7 @@
     <div class="volcano">
       <div class="container">
         <div class="back" @click="goBack">
-          <div><img :src="arrowLeft" alt="go back"/></div>
+          <div><img :src="iconBack" alt="go back" class="icon-back" /></div>
           <div>Back</div>
         </div>
         <div class="session-l">
@@ -13,12 +13,12 @@
               <img :src="iconTag" alt="type" class="tag">
             </div>
             <span style="border-bottom: 1px solid white;
-             text-transform: uppercase">
+            text-transform: uppercase">
               {{ type }}
             </span>
           </div>
           <div class="vName">{{ current_volcano.volcano_name }}</div>
-          <el-scrollbar height="150">
+          <el-scrollbar>
             <div class="vDescription">{{ current_volcano.Description }}</div>
           </el-scrollbar>
           <div class="location" v-if="LatLng.lat && LatLng.lng">
@@ -38,35 +38,83 @@
           <div class="vPhoto_box">
             <img :src="current_volcano.image" alt="volcano photo" class="vPhoto"/>
           </div>
-          <div class="like">
-            <div v-if="!liked"
-              class="like-box" @click="debounceMethods(likeVolcano, current_volcano.id, 2000)">
-              <img :src="iconLike" alt="like" class="like-icon" />
+          <div class="tool-bar">
+            <div class="like">
+              <div v-if="!liked"
+                class="like-box" @click="debounceMethods(likeVolcano, current_volcano.id, 2000)">
+                <el-popover
+                  placement="top-start"
+                  :width="200"
+                  trigger="hover"
+                  content="Think useful? Give it a like!"
+                  popper-class="useful-popper"
+                >
+                  <template #reference>
+                    <img :src="iconUsefulInactive" alt="like" class="like-icon" />
+                  </template>
+                </el-popover>
+              </div>
+              <div v-else
+                class="like-box"  @click="debounceMethods(dislikeVolcano, current_volcano.id, 2000)">
+                <img :src="iconUseful" alt="liked" class="like-icon" />
+              </div>
+              <div class="like-num">{{ current_volcano.likes }}</div>
             </div>
-            <div v-else
-              class="like-box"  @click="debounceMethods(dislikeVolcano, current_volcano.id, 2000)">
-              <img :src="iconLiked" alt="liked" class="like-icon" />
+            <div class="report" @click="dialogVisible=true">
+              <img :src="iconReport" alt="report" class="icon-report"/>
             </div>
-            <div class="like-num">{{ current_volcano.likes }}</div>
           </div>
         </div>
       </div>
 
       <side-board class="side_board" :volcano_json="volcano_json" :type="type"
                   @setVolcano="setVolcano" />
-
-      <div id="volcano-bg"></div>
     </div>
+
+    <el-dialog v-model="dialogVisible" align-center width="40%">
+      <template #header="{ titleId, titleClass }">
+        <div class="my-header">
+          <div :id="titleId" :class="titleClass">
+            <div class="dialog-title">
+              <div class="icon-error-box">
+                <img :src="iconError" alt="error" class="icon-error" />
+              </div>
+              <span>Report Error</span>
+            </div>
+          </div>
+        </div>
+      </template>
+      <el-form :model="form" :label-position="'top'" :rules="rules" status-icon>
+        <el-form-item label="Volcano Name" prop="vName">
+          <el-input v-model="form.vName" autocomplete="off" maxlength="50" />
+        </el-form-item>
+        <el-form-item label="Error Description" prop="eDesc">
+          <el-input v-model="form.eDesc" type="textarea" autocomplete="off" :rows="5"  maxlength="200" show-word-limit />
+        </el-form-item>
+        <el-form-item label="Your email address" prop="email">
+          <el-input v-model="form.email" autocomplete="off" maxlength="50" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="submitForm">
+          Confirm
+        </el-button>
+      </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import ArrowLeft from '@/assets/Volcano/arrow-left.png';
+import IconBack from '@/assets/Volcano/icon-back.png';
 import IconTag from '@/assets/Volcano/icon-tag.png';
-import IconLike from '@/assets/Volcano/icon-like.png';
-import IconLiked from '@/assets/Volcano/icon-liked.png';
-import { getVolcano, likeVolcano, dislikeVolcano } from '@/api/data';
-import SideBoard from '@/components/SideBoard.vue';
+import IconUseful from '@/assets/Volcano/useful-active.png';
+import IconUsefulInactive from '@/assets/Volcano/useful-inactive.png';
+import IconReport from '@/assets/Volcano/icon-report.png';
+import IconError from '@/assets/Volcano/icon-error.png';
+import { getVolcano, likeVolcano, dislikeVolcano, submitForm } from '@/api/data';
+import SideBoard from '@/components/Volcanoes/SideBoard.vue';
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -80,10 +128,12 @@ export default {
   },
   data() {
     return {
-      arrowLeft: ArrowLeft,
+      iconBack: IconBack,
       iconTag: IconTag,
-      iconLike: IconLike,
-      iconLiked: IconLiked,
+      iconUseful: IconUseful,
+      iconUsefulInactive: IconUsefulInactive,
+      iconReport: IconReport,
+      iconError: IconError,
       current_volcano: {},
       volcano_json: [],
       type: this.$route.params.type,
@@ -91,11 +141,22 @@ export default {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       zoom: 8,
       LatLng: {},
+      dialogVisible: false,
+      form: {
+        vName: '',
+        eDesc: '',
+        email: '',
+      },
+      rules: {
+        vName: [{ required: true, message: 'Please input Volcano\'s name', trigger: 'blur' }],
+        eDesc: [{ required: true, trigger: 'blur' }],
+        email: [{ required: true, trigger: 'blur' }],
+      },
     };
   },
   methods: {
     goBack() {
-      this.$router.push('/Categories');
+      this.$router.push('/overview');
     },
     async getVolcano(type) {
       await getVolcano(type)
@@ -143,6 +204,25 @@ export default {
           console.log(err);
         });
     },
+    async submitForm() {
+      this.dialogVisible = false;
+      const formData = new FormData();
+      Object.keys(this.form).forEach((key) => {
+        formData.append(key, this.form[key]);
+      });
+      console.log(formData.get('vName'));
+      await submitForm(formData)
+        .then((res) => {
+          this.$message({
+            message: res.data.description,
+            type: 'success',
+            center: true,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   created() {
     this.getVolcano(this.type);
@@ -154,36 +234,23 @@ export default {
         this.type = to.query.type; // 把最新id赋值给定义在data中的id
         this.$router.go(0); // 重新调用加载数据方法
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
-#volcano-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
+.volcano {
+  backdrop-filter: blur(14px);
   width: 100vw;
   height: 100vh;
-  background-color: rgba(72, 72, 73, 0.9);
-  z-index: -10;
-}
-
-.volcano {
+  display: flex;
+  justify-content: center;
+  align-items: end;
   .container {
     position: relative;
-    margin: 76px wCal(122);
-    width: calc(100vw - wCal(244));
-    height: calc(100vh - 269px);
+    width: calc(100% - wCalc(244));
+    height: calc(100% - hCalc(150));
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -194,39 +261,40 @@ export default {
 .back {
   position: absolute;
   top: 0;
-  left: 0;
+  left: hCalc(-36);
   display: flex;
   column-gap: 10px;
   cursor: pointer;
 
   font-family: union_regular;
-  font-size: 32px;
+  font-size: fSizeCalc(28);
   color: white;
   z-index: 90;
-}
-
-.session-l, .session-r {
-  height: 100%;
+  .icon-back {
+    width: hCalc(25);
+    height: hCalc(24);
+  }
 }
 
 .session-l {
   position: relative;
-  margin-top: 79px;
-  width: wCal(704);
+  margin-top: hCalc(79);
+  width: wCalc(704);
+  height: calc(100% - hCalc(79));
   color: white;
   text-align: start;
   .vType {
     position: absolute;
-    top: -79px;
+    top: hCalc(-79);
     right: 0;
     display: flex;
     column-gap: 18px;
     font-family: Roboto-Black;
-    font-size: 32px;
-    line-height: 43px;
+    font-size: fSizeCalc(32);
+    line-height: fSizeCalc(43);
     .tag-box {
-      width: 43px;
-      height: 43px;
+      width: hCalc(43);
+      height: hCalc(43);
     }
     .tag {
       width: 100%;
@@ -237,59 +305,75 @@ export default {
     width: 100%;
     //height: 60px;
     font-family: Roboto-Black;
-    font-size: 48px;
+    font-size: fSizeCalc(48);
   }
   ::v-deep .el-scrollbar{
-    height: hCal(150);
-    min-height: 100px;
-    margin: hCal(28) 0 hCal(73) 0;
+    height: hCalc(150);
+    min-height: hCalc(100);
+    margin: hCalc(28) 0 hCalc(73) 0;
   }
   .vDescription {
-    padding-bottom: 15px;
+    padding-bottom: hCalc(15);
     width: 100%;
     font-family: union_regular;
-    font-size: 16px;
-    line-height: 31px;
+    font-size: hCalc(20);
+    line-height: hCalc(31);
   }
   .location {
     width: 100%;
-    height: 339px;
+    height: hCalc(339);
     display: flex;
     flex-direction: column;
-    margin-top: 34px;
+    margin-top: hCalc(34);
   }
 }
 
 .session-r {
-  width: wCal(866);
+  width: wCalc(866);
+  height: 100%;
   .vPhoto_box {
     width: 100%;
-    height: hCal(729);
+    height: hCalc(729);
     background-color: #000;
     .vPhoto {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
-  .like {
-    margin-top: 10px;
+  .tool-bar {
     display: flex;
-    column-gap: 10px;
-    .like-box {
-      width: 37px;
-      height: 37px;
+    flex-direction: row;
+    column-gap: hCalc(10);
+    .like {
+      margin-top: hCalc(10);
+      display: flex;
+      column-gap: hCalc(10);
+      .like-box {
+        width: hCalc(27);
+        height: hCalc(27);
+        cursor: pointer;
+        .like-icon {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .like-num {
+        font-family: union_regular;
+        font-size: fSizeCalc(16);
+        line-height: fSizeCalc(27);
+        color: white;
+      }
+    }
+    .report {
+      margin-top: hCalc(10);
+      width: hCalc(30);
+      height: hCalc(30);
       cursor: pointer;
-      .like-icon {
+      .icon-report {
         width: 100%;
         height: 100%;
       }
-    }
-    .like-num {
-      font-family: union_regular;
-      font-size: 16px;
-      line-height: 37px;
-      color: white;
     }
   }
 }
@@ -297,7 +381,7 @@ export default {
 .side_board {
   position: absolute;
   bottom: 0;
-  left: wCal(121);
+  left: wCalc(121);
   z-index: 99;
 }
 
@@ -305,11 +389,65 @@ export default {
   z-index: 90;
 }
 
+::v-deep .el-dialog {
+  border-radius: 20px;
+  .my-header {
+    .dialog-title {
+      display: flex;
+      flex-direction: row;
+      font-family: Roboto-Black;
+      font-size: fSizeCalc(38);
+      line-height: hCalc(55);
+      letter-spacing: fSizeCalc(-0.48);
+      text-align: center;
+      .icon-error-box {
+        width: hCalc(55);
+        height: hCalc(55);
+        .icon-error {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .el-dialog__headerbtn {
+    top: 10px !important;
+    right: 10px !important;
+    width: hCalc(40) !important;
+    height: hCalc(40) !important;
+    .el-dialog__close {
+      width: 100% !important;
+      height: 100% !important;
+      svg {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+    &:hover {
+      --el-color-primary: rgb(191, 95, 64) !important;
+    }
+  }
+  .el-form-item {
+    .el-form-item__label {
+      font-family: union_regular;
+      font-size: fSizeCalc(22);
+    }
+    .el-form-item__content {
+      //width: 100%;
+    }
+  }
+  .el-input, .el-textarea {
+    --el-border-color: #484849 !important;
+    --el-border-color-hover: #484849 !important;
+    --el-color-primary: #484849 !important;
+  }
+}
+
 @media screen and (max-width: 1400px) {
   .session-l {
     .vType {
       position: unset;
-      margin-bottom: 20px;
+      margin-bottom: hCalc(20);
     }
   }
 }

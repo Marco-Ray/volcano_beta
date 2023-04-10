@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import 'video.js/dist/video-js.css';
 import IconScrolldown from '@/assets/Welcome/icon-scrolldown.svg';
 
 export default {
