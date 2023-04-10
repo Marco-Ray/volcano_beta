@@ -8,7 +8,6 @@
                background-color="transparent"
                text-color="white"
                active-text-color="white"
-               @select="setActiveRouter"
       >
         <el-menu-item index="1" :route="{ path: '/' }">Home</el-menu-item>
         <el-menu-item index="2" :route="{ path: '/overview'}">Overview</el-menu-item>

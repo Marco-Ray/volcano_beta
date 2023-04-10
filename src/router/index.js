@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Overview from '../views/Overview.vue';
+import VolcanoViewLayout from '@/views/VolcanoViewLayout/index.vue';
+import VolcanoView from '@/views/VolcanoViewLayout/VolcanoView.vue';
 
 const routes = [
   {
@@ -12,6 +14,22 @@ const routes = [
     path: '/overview',
     name: 'Overview',
     component: Overview,
+  },
+  {
+    path: '/Volcano/',
+    name: 'VolcanoLayout',
+    component: VolcanoViewLayout,
+    children: [
+      {
+        path: '/Volcano/:type',
+        name: 'Volcano',
+        component: VolcanoView,
+        meta: {
+          index: 2,
+          transitionName: '',
+        },
+      },
+    ],
   },
 ];
 

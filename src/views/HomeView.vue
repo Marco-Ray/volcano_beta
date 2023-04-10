@@ -19,10 +19,6 @@
         </div>
       </div>
 
-      <!-- video -->
-      <video autoplay muted loop id="myVideo">
-        <source src="bg-video.mp4" type="video/mp4">
-      </video>
 
       <div class="scroll-down-btt animate__animated animate__flash animate__infinite animate__slower"
            @click="scrollDown"
@@ -125,24 +121,15 @@ export default {
   color: white;
   text-align: start;
   overflow-wrap: break-word;
+
   p {
     line-height: 33px;
   }
 }
 
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-
 #conclusion {
   height: 100vh;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(14px);
   position: relative;
 
   .scroll-up-btt {

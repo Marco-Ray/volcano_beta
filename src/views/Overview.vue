@@ -2,14 +2,21 @@
 <template>
   <div>
     <!-- nav-bar /-->
-    <div class="categories">
+    <div class="overview">
       <div class="container">
         <el-tabs type="card" tabPosition="left">
           <el-tab-pane
             v-for="(label, index) in labelOptions" :key="index"
-            :label="label"
           >
-            <category-board :type="label" :index="index" />
+            <template #label>
+              <span class="custom-tabs-label">
+                <div class="icon-box">
+                  <img :src="label.icon" alt="volcano type icon" class="vType-icon"/>
+                </div>
+                <span class="tab-title">{{ label.type }}</span>
+              </span>
+            </template>
+            <overview-board :index="index" />
           </el-tab-pane>
         </el-tabs>
 
@@ -19,26 +26,45 @@
         </div>
       </div>
 
-      <div id="categories-bg"></div>
     </div>
   </div>
 </template>
 
 <script>
 // import NavBar from '@/components/NavBar.vue';
-import CategoryBoard from '@/components/Overview/CategoryBoard.vue';
-import ArrowRight from '@/assets/Categories/arrow-right.png';
+import OverviewBoard from '@/components/Overview/OverviewBoard.vue';
+import ArrowRight from '@/assets/Overview/arrow-right.png';
+import ShieldIcon from '@/assets/Overview/Shield.svg';
+import Caldera from '@/assets/Overview/Caldera.svg';
+import Stratovolcano from '@/assets/Overview/Stratovolcano.svg';
+import PyroclasticCones from '@/assets/Overview/PyroclasticCones.svg';
 
 export default {
   name: 'OverView',
   components: {
     // NavBar,
-    CategoryBoard,
+    OverviewBoard,
   },
   data() {
     return {
       arrowRight: ArrowRight,
-      labelOptions: ['Stratovolcano', 'Shield', 'Caldera', 'Pyroclastic cone'],
+      labelOptions: [
+        {
+          type: 'Stratovolcano',
+          icon: Stratovolcano,
+        },
+        {
+          type: 'Shield',
+          icon: ShieldIcon,
+        },
+        {
+          type: 'Caldera',
+          icon: Caldera,
+        },
+        {
+          type: 'Pyroclastic cone',
+          icon: PyroclasticCones,
+        }],
       type: 'Stratovolcano',
     };
   },
@@ -51,30 +77,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
-#categories-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
+.overview {
+  backdrop-filter: blur(14px);
   width: 100vw;
   height: 100vh;
-  background-color: rgba(72, 72, 73, 0.9);
-  z-index: -10;
-}
-
-.categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .container {
-    position: relative;
-    margin: 72px wCal(122);
-    width: calc(100vw - wCal(244));
-    height: calc(100vh - 269px);
+    //position: relative;
+    width: calc(100% - wCalc(244));
+    height: calc(100% - hCalc(300));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,23 +98,26 @@ export default {
 }
 
 .el-tabs {
+  //display: none;
   height: 100%;
   ::v-deep .el-tabs__nav-wrap {
     padding: 0 !important;
     .el-tabs__nav {
       border: unset !important;
-    }
-    .el-tabs__content {
-      width: calc(100vw - wCal(414));
-      height: 100%;
+      &.is-left {
+        height: 100%;
+        justify-content: space-between;
+      }
     }
     .el-tabs__item {
-      margin: 5px 0 ;
-      width: 166px;
-      height: 166px;
+      //margin: 5px 0 ;
+      width: hCalc(176);
+      height: hCalc(176);
       background-color: rgb(151, 151, 151);
       text-align: center;
       line-height: 166px;
+      font-family: union_regular;
+      font-size: fSizeCalc(15);
       color: white;
       border: unset !important;
       &:hover {
@@ -114,10 +130,29 @@ export default {
   }
 }
 
+.custom-tabs-label {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .icon-box {
+    width: 100%;
+    height: 100%;
+    .vType-icon {
+      width: 100%;
+    }
+  }
+  .tab-title {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
 .viewMore {
   position: absolute;
-  bottom: hCal(-60);
-  right: wCal(20);
+  bottom: hCalc(60);
+  right: wCalc(120);
   display: flex;
   flex-direction: row;
   column-gap: 10px;
