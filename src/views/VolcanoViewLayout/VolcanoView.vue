@@ -64,6 +64,10 @@
               <img :src="iconReport" alt="report" class="icon-report"/>
             </div>
           </div>
+
+          <div class="claim">
+            <div>* Data source: <a href="https://volcano.si.edu/" target="_blank">https://volcano.si.edu/</a></div>
+          </div>
         </div>
       </div>
 
@@ -96,7 +100,8 @@
         <el-form-item label="Error Description" prop="eDesc">
           <el-input v-model="form.eDesc" type="textarea" autocomplete="off" :rows="5"  maxlength="200" show-word-limit />
         </el-form-item>
-        <el-form-item label="Your email address" prop="email">
+        <el-form-item prop="email">
+          <template v-slot:label>Your email address <span class="label__hint">(only for us to contact you)</span></template>
           <el-input v-model="form.email" autocomplete="off" maxlength="50" />
         </el-form-item>
       </el-form>
@@ -113,7 +118,6 @@
 
 <script>
 import IconBack from '@/assets/Volcano/icon-back.png';
-import IconTag from '@/assets/Volcano/icon-tag.png';
 import IconUseful from '@/assets/Volcano/useful-active.png';
 import IconUsefulInactive from '@/assets/Volcano/useful-inactive.png';
 import IconReport from '@/assets/Volcano/icon-report.png';
@@ -124,11 +128,15 @@ import {
   likeVolcano,
   dislikeVolcano,
   submitForm,
-  searchVolcano
+  searchVolcano,
 } from '@/api/data';
 import SideBoard from '@/components/Volcanoes/SideBoard.vue';
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
+import ShieldIcon from '@/assets/Overview/Shield.svg';
+import Caldera from '@/assets/Overview/Caldera.svg';
+import Stratovolcano from '@/assets/Overview/Stratovolcano.svg';
+import PyroclasticCones from '@/assets/Overview/PyroclasticCones.svg';
 
 export default {
   name: 'VolcanoView',
@@ -141,7 +149,6 @@ export default {
   data() {
     return {
       iconBack: IconBack,
-      iconTag: IconTag,
       iconUseful: IconUseful,
       iconUsefulInactive: IconUsefulInactive,
       iconReport: IconReport,
@@ -164,7 +171,18 @@ export default {
         eDesc: [{ required: true, trigger: 'blur' }],
         email: [{ required: true, trigger: 'blur' }],
       },
+      typeIcon: {
+        Shield: ShieldIcon,
+        Stratovolcano: Stratovolcano,
+        Caldera: Caldera,
+        'Pyroclastic cone': PyroclasticCones,
+      },
     };
+  },
+  computed: {
+    iconTag() {
+      return this.typeIcon[this.type];
+    },
   },
   methods: {
     goBack() {
@@ -349,8 +367,8 @@ export default {
     font-size: fSizeCalc(32);
     line-height: fSizeCalc(43);
     .tag-box {
-      width: hCalc(43);
-      height: hCalc(43);
+      width: hCalc(50);
+      height: hCalc(50);
     }
     .tag {
       width: 100%;
@@ -385,6 +403,7 @@ export default {
 }
 
 .session-r {
+  position: relative;
   width: wCalc(866);
   height: 100%;
   .vPhoto_box {
@@ -429,6 +448,22 @@ export default {
       .icon-report {
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+
+  .claim {
+    position: absolute;
+    bottom: hCalc(60);
+    right: 0;
+    color: white;
+    z-index: 90;
+    font-family: union_regular;
+    font-size: fSizeCalc(20);
+    a {
+      color: white;
+      &:hover {
+        color: rgb(191, 95, 64);
       }
     }
   }
@@ -490,6 +525,10 @@ export default {
     }
     .el-form-item__content {
       //width: 100%;
+    }
+    .label__hint {
+      color: gray;
+      font-size: fSizeCalc(16);
     }
   }
   .el-input, .el-textarea {

@@ -23,9 +23,13 @@
           </el-tab-pane>
         </el-tabs>
 
+        <div class="claim">
+          <div>* Data source: <a href="https://volcano.si.edu/" target="_blank">https://volcano.si.edu/</a></div>
+        </div>
+
         <div class="viewMore" @click="goFor">
           <div>View Volcanoes</div>
-          <div><img :src="arrowRight" alt="view volcanoes"/></div>
+          <div class="icon-box"><img :src="arrowRight" alt="view volcanoes" class="icon" /></div>
         </div>
       </div>
 
@@ -152,10 +156,27 @@ export default {
   }
 }
 
+.claim {
+  position: absolute;
+  bottom: hCalc(60);
+  left: wCalc(120);
+  color: white;
+  z-index: 90;
+  font-family: union_regular;
+  font-size: fSizeCalc(20);
+  a {
+    color: white;
+    &:hover {
+      color: rgb(191, 95, 64);
+    }
+  }
+}
+
 .viewMore {
   position: absolute;
   bottom: hCalc(60);
   right: wCalc(120);
+  height: hCalc(25);
   display: flex;
   flex-direction: row;
   column-gap: 10px;
@@ -164,6 +185,12 @@ export default {
 
   color: white;
   font-family: union_regular;
-  font-size: 32px;
+  font-size: fSizeCalc(32);
+  .icon-box {
+    height: 100%;
+    .icon {
+      height: 100%;
+    }
+  }
 }
 </style>
