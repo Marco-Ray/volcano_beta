@@ -31,20 +31,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
 .item-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 800px;
-  height: 500px;
+  width: hCalc(800);
+  height: hCalc(500);
   &:nth-child(2n-1) {
     border-right: 1px solid white;
   }
@@ -54,28 +46,28 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto 50px;
-  width: calc(100% - 100px);
+  margin: auto wCalc(50);
+  width: calc(100% - wCalc(100));
   height: 100%;
   border-bottom: 1px solid white;
   color: white;
   cursor: pointer;
   .item-title {
-    margin-bottom: 20px;
+    margin-bottom: hCalc(20);
     font-family: union_bold;
-    font-size: 26px;
-    letter-spacing: -0.33px;
+    font-size: fSizeCalc(26);
+    letter-spacing: fSizeCalc(-0.33);
     text-align: center;
   }
   .item-cover {
-    margin-bottom: 50px;
-    width: 500px;
-    height: 350px;
+    margin-bottom: hCalc(50);
+    width: hCalc(500);
+    height: hCalc(350);
     background-color: rgb(0, 0, 0);
     .graph_cover {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 }

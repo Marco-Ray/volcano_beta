@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue';
 import Overview from '../views/Overview.vue';
 import VolcanoViewLayout from '@/views/VolcanoViewLayout/index.vue';
 import VolcanoView from '@/views/VolcanoViewLayout/VolcanoView.vue';
+import LearnMore from '@/views/LearnMore/index.vue';
+import ContentView from '../views/LearnMore/ContentView.vue';
+import ArticleViews from '../views/LearnMore/ArticleViews.vue';
 
 const routes = [
   {
@@ -35,6 +38,39 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: '/LearnMore',
+    name: 'LearnMore',
+    component: LearnMore,
+    meta: {
+      index: 3,
+      transitionName: '',
+    },
+    children: [
+      {
+        path: '',
+        name: 'Content',
+        component: ContentView,
+        meta: {
+          index: 4,
+          transitionName: '',
+        },
+      },
+      {
+        path: '/Article',
+        name: 'Article',
+        component: ArticleViews,
+        meta: {
+          index: 5,
+          transitionName: '',
+        },
+      },
+    ],
+  },
+  {
+    path: '/:catchAll(.*)*',
+    redirect: { name: 'Home' },
   },
 ];
 

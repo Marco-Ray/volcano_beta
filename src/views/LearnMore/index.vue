@@ -19,8 +19,6 @@
           </router-view>
         </el-scrollbar>
       </div>
-
-      <div id="learn-more-bg"></div>
     </div>
   </div>
 </template>
@@ -62,35 +60,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
-#learn-more-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(72, 72, 73, 0.9);
-  z-index: -10;
-}
-
 .learn-more {
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(14px);
+  display: flex;
+  justify-content: center;
+  align-items: end;
   .container {
-    margin: 76px wCal(61);
-    width: calc(100vw - wCal(122));
-    height: calc(100vh - 200px);
+    margin: hCalc(76) wCalc(61);
+    width: calc(100vw - wCalc(122));
+    height: calc(100% - hCalc(250));
     border-top: 1px solid white;
     overflow: hidden;
     ::v-deep .el-scrollbar {
       width: 100%;
       .el-scrollbar__wrap {
-        margin-top: 20px;
+        margin-top: hCalc(20);
       }
       .el-scrollbar__view {
         display: flex;

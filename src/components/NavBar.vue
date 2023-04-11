@@ -18,7 +18,7 @@
           <el-menu-item index="3-3" :route="{ path: '/Volcano/Caldera' }">Caldera</el-menu-item>
           <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic+cone' }">Pyroclastic cone</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="4">Learn More</el-menu-item>
+        <el-menu-item index="4" :route="{ name: 'LearnMore' }">Learn More</el-menu-item>
       </el-menu>
     </div>
   </div>

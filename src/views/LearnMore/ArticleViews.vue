@@ -54,14 +54,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@function wCal($w) {
-  @return calc(100vw / 1920 * $w);
-}
-
-@function hCal($h) {
-  @return calc(100vh / 1080 * $h);
-}
-
 .article {
   width: 100%;
   color: white;
