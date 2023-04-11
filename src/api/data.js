@@ -61,10 +61,10 @@ export function submitForm(formData) {
   });
 }
 
-export function searchVolcano(name) {
+export function searchVolcano(type, name) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/search/${name}`,
-    url: `/api/volcano/${name}`,
+    // url: `/fatfree/Volcano-Back/volcano/search/${type}/${name}`,
+    url: `/api/volcano/search/${type}/${name}`,
     method: 'get',
     urlType: 'api',
   });

@@ -48,6 +48,7 @@ export default {
       vName4search: '',
       Search: Search,
       currentPage: 1,
+      isSearching: false,
     };
   },
   methods: {
@@ -59,26 +60,22 @@ export default {
         center: true,
       });
     },
-    async searchVolcano() {
+    searchVolcano() {
       const name = this.vName4search;
-      await searchVolcano(name)
-        .then(() => {
-          this.$message(
-            {
-              message: 'Results found',
-              type: 'success',
-              center: true,
-            },
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (name !== '') {
+        this.isSearching = true;
+        this.$emit('searchVolcano', name);
+      } else {
+        this.isSearching = false;
+        this.$emit('resetPage');
+      }
     },
   },
   watch: {
     currentPage(newPage) {
-      this.$emit('updatePage', newPage);
+      if (!this.isSearching) {
+        this.$emit('updatePage', newPage);
+      }
     },
   },
 };
@@ -127,6 +124,7 @@ export default {
     font-size: 48px;
   }
   .cards_grid {
+    padding: 0 wCalc(100);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;

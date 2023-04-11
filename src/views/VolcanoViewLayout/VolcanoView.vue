@@ -70,6 +70,8 @@
       <side-board class="side_board" :totalNum="totalNum" :volcano_json="volcano_json" :type="type"
                   @setVolcano="setVolcano"
                   @updatePage="updatePage"
+                  @searchVolcano="searchVolcano"
+                  @resetPage="resetPage"
       />
     </div>
 
@@ -101,7 +103,7 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button type="primary" @click="submitForm">
-          Confirm
+          Send Error
         </el-button>
       </span>
       </template>
@@ -116,7 +118,14 @@ import IconUseful from '@/assets/Volcano/useful-active.png';
 import IconUsefulInactive from '@/assets/Volcano/useful-inactive.png';
 import IconReport from '@/assets/Volcano/icon-report.png';
 import IconError from '@/assets/Volcano/icon-error.png';
-import { getVolcanoTotalNum, getVolcano, likeVolcano, dislikeVolcano, submitForm } from '@/api/data';
+import {
+  getVolcanoTotalNum,
+  getVolcano,
+  likeVolcano,
+  dislikeVolcano,
+  submitForm,
+  searchVolcano
+} from '@/api/data';
 import SideBoard from '@/components/Volcanoes/SideBoard.vue';
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -187,8 +196,39 @@ export default {
           console.log(err);
         });
     },
+    async searchVolcano(name) {
+      await searchVolcano(this.type, name)
+        .then((res) => {
+          if (!res.data.status_code) {
+            this.volcano_json = [res.data];
+            this.totalNum = 1;
+            this.$message(
+              {
+                message: 'Results found',
+                type: 'success',
+                center: true,
+              },
+            );
+          } else {
+            this.$message(
+              {
+                message: 'Result Not Found',
+                type: 'error',
+                center: true,
+              },
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     updatePage(newPage) {
       this.getVolcano(this.type, newPage);
+    },
+    resetPage() {
+      this.getVolcanoTotalNum(this.type);
+      this.getVolcano(this.type, 1);
     },
     setVolcano(index) {
       this.current_volcano = this.volcano_json[index];
@@ -376,8 +416,8 @@ export default {
       }
       .like-num {
         font-family: union_regular;
-        font-size: fSizeCalc(16);
-        line-height: fSizeCalc(27);
+        font-size: hCalc(27);
+        line-height: hCalc(27);
         color: white;
       }
     }
@@ -456,6 +496,12 @@ export default {
     --el-border-color: #484849 !important;
     --el-border-color-hover: #484849 !important;
     --el-color-primary: #484849 !important;
+  }
+  .el-button--primary {
+    --el-button-bg-color: rgb(191, 95, 64) !important;
+    --el-button-border-color: rgb(191, 95, 64) !important;
+    --el-button-hover-bg-color: rgba(191, 95, 64, 80%) !important;
+    --el-button-hover-border-color: rgba(191, 95, 64, 80%) !important;
   }
 }
 
