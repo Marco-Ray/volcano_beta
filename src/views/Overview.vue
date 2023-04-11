@@ -185,7 +185,7 @@ export default {
   justify-content: center;
   align-items: center;
   .container {
-    //position: relative;
+    position: relative;
     width: calc(100% - wCalc(244));
     height: calc(100% - hCalc(300));
     display: flex;

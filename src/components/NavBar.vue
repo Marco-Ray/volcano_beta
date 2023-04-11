@@ -16,9 +16,9 @@
           <el-menu-item index="3-1" :route="{ path: '/Volcano/Stratovolcano' }">Stratovolcano</el-menu-item>
           <el-menu-item index="3-2" :route="{ path: '/Volcano/Shield' }">Shield</el-menu-item>
           <el-menu-item index="3-3" :route="{ path: '/Volcano/Caldera' }">Caldera</el-menu-item>
-          <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic+cone' }">Pyroclastic cone</el-menu-item>
+          <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic%20cone' }">Pyroclastic cone</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="4" :route="{ name: 'LearnMore' }">Learn More</el-menu-item>
+        <el-menu-item index="4" :route="{ path: '/LearnMore' }">Learn More</el-menu-item>
       </el-menu>
     </div>
   </div>
@@ -117,7 +117,7 @@ export default {
   border-width: 2px;
   border-radius: 12px;
   border-color: RGB(191, 95, 64) !important;
-  background: transparent !important;
+  background: rgba(0, 0, 0, 0.7) !important;
 }
 
 ::v-deep .el-menu--horizontal {

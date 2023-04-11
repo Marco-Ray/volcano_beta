@@ -20,6 +20,10 @@ export default {
       default: () => [], // The default value is an empty array
     },
   },
+  data() {
+    return {
+    };
+  },
   // The lifecycle hook of the component
   mounted() {
     this.initChart(); // Initialize the chart
@@ -132,7 +136,13 @@ export default {
         ],
       };
       chart.setOption(option);
+
+      window.addEventListener('resize', () => {
+        chart.resize();
+      });
     },
+  },
+  beforeUnmount() {
   },
 };
 </script>

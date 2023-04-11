@@ -19,7 +19,6 @@
         </div>
       </div>
 
-
       <div class="scroll-down-btt animate__animated animate__flash animate__infinite animate__slower"
            @click="scrollDown"
       >
@@ -72,6 +71,7 @@ export default {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   .container {
+    position: relative;
     scroll-snap-align: center;
     height: 100vh;
     margin-left: wCalc(122);
@@ -96,7 +96,7 @@ export default {
     position: absolute;
     bottom: hCalc(50);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% - wCalc(61)));
     width: hCalc(57);
     height: hCalc(57);
     cursor: pointer;
