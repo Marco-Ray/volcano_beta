@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Logo from '@/assets/Welcome/Logo.png';
+import Logo from '@/assets/Welcome/Logo.svg';
 
 export default {
   name: 'NavBar',
@@ -57,8 +57,8 @@ export default {
 }
 
 .logo-box {
-  width: hCalc(60);
-  height: hCalc(60);
+  //width: hCalc(60);
+  height: hCalc(70);
   cursor: pointer;
   .logo {
     width: 100%;

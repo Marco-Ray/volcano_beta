@@ -2,28 +2,48 @@
 <template>
  <div class="category">
    <!--el-scrollbar height="811px" -->
-     <div class="card card-1">
-       <div>
-         <div class="title">Volcano Type and Ash Composition</div>
-         <div class="features">{{ features }}</div>
-       </div>
+     <div class="card card-1" @click="setActiveCard(0)"
+          :class="activedCard===0 ? 'is-active' : ''"
+     >
+       <div class="title">Volcano Type and Ash Composition</div>
+       <div class="card__content">
+         <div>
+           <div class="features">{{ features }}</div>
+         </div>
          <div class="title countries">Common Distribution Countries</div>
          <div class="countries-box">
            <div v-for="(countryImg, index) in countries[index]" :key="index">
              <img :src="countryImg" alt="country" class="icon-country" />
            </div>
          </div>
+       </div>
       </div>
       <!-- eslint-disable-next-line -->
-     <div class="card card-2" @mouseover="showChart=true" @mouseleave="showChart=false">
+     <div class="card card-2" @click="setActiveCard(1)"
+          :class="activedCard===1 ? 'is-active' : ''"
+     >
       <div class="title">Emission Frequency</div>
-      </div>
-     <div class="card card-3">
-      <div class="title">Volcano Elevation</div>
+       <div class="card__content">
+         <eruption-line-chart
+           v-if="showChart"
+           :key="index"
+           :raw-data="data"
+           chart-title="1"
+           class="dynamic-chart"
+         />
+       </div>
+     </div>
+     <div class="card card-3" @click="setActiveCard(2)"
+          :class="activedCard===2 ? 'is-active' : ''"
+     >
+       <div class="title">Volcano Elevation</div>
+       <div class="card__content">
+       </div>
       </div>
      <div class="cPhoto-box">
-        <img v-if='!showChart' :src="imgList[index][0]" alt="" class="cPhoto" />
-        <img v-else :src="imgList[index][1]" alt="" class="cPhoto__chart" />
+<!--        <img v-if='!showChart' :src="imgList[index][0]" alt="" class="cPhoto" />-->
+<!--        <img v-else :src="imgList[index][1]" alt="" class="cPhoto__chart" />-->
+       <img :src="VolcanoPlaceholder" alt="" class="cPhoto__chart" />
      </div>
    <!--/el-scrollbar -->
  </div>
@@ -40,11 +60,17 @@ import Ecuador from '@/assets/Overview/countries/214-ecuador.png';
 import NZ from '@/assets/Overview/countries/215-new zealand.png';
 import Kenya from '@/assets/Overview/countries/234-kenya.png';
 import Japan from '@/assets/Overview/countries/241-japan.png';
+import VolcanoPlaceholder from '@/assets/Overview/volcano-placeholder.png';
+import EruptionLineChart from '@/components/Overview/EruptionLineChart.vue';
 
 export default {
   name: 'OverviewBoard',
   props: {
     index: Number,
+    data: Array,
+  },
+  components: {
+    EruptionLineChart,
   },
   data() {
     return {
@@ -62,9 +88,27 @@ export default {
         [Mexico, Russia, Chile, China, US],
       ],
       showChart: false,
+      VolcanoPlaceholder: VolcanoPlaceholder,
+      activedCard: 0,
     };
   },
   methods: {
+    setActiveCard(index) {
+      // if (this.activedCard !== index) {
+      //   document.getElementsByClassName('card')[this.activedCard].classList.remove('is-active');
+      //   document.getElementsByClassName('card')[index].classList.add('is-active');
+      // }
+      this.activedCard = index;
+    },
+  },
+  watch: {
+    activedCard(index) {
+      if (index === 1) {
+        this.showChart = true;
+      } else {
+        this.showChart = false;
+      }
+    },
   },
 };
 </script>
@@ -85,11 +129,18 @@ export default {
     color: white;
     border-right: 1px solid rgb(151, 151, 151);
     border-top: 5px solid transparent;
+    cursor: pointer;
     &:nth-child(-1) {
       border-right: unset;
     }
-    &:hover {
+    .card__content {
+      display: none;
+    }
+    &.is-active {
       border-top-color: rgb(191, 95, 64);
+      .card__content {
+        display: block;
+      }
     }
   }
 
@@ -125,6 +176,15 @@ export default {
       width: hCalc(59);
       height: hCalc(59);
     }
+  }
+
+  .dynamic-chart {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: hCalc(658);
+    pointer-events: visible;
+    z-index: 100;
   }
 }
 

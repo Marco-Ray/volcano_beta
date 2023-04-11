@@ -67,8 +67,12 @@ export default {
 
 <style scoped lang="scss">
 .home {
+  height: 100vh;
   width: 100vw;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
   .container {
+    scroll-snap-align: center;
     height: 100vh;
     margin-left: wCalc(122);
     display: flex;
@@ -130,7 +134,7 @@ export default {
   height: 100vh;
   backdrop-filter: blur(14px);
   position: relative;
-
+  scroll-snap-align: center;
   .scroll-up-btt {
     position: absolute;
     top: hCalc(182);

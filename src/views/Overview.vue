@@ -19,7 +19,7 @@
                 <span class="tab-title">{{ label.type }}</span>
               </span>
             </template>
-            <overview-board :index="index" />
+            <overview-board :key="index" :index="index" :data="EruptionData[index]" />
           </el-tab-pane>
         </el-tabs>
 
@@ -32,7 +32,6 @@
           <div class="icon-box"><img :src="arrowRight" alt="view volcanoes" class="icon" /></div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -73,6 +72,100 @@ export default {
           icon: PyroclasticCones,
         }],
       type: 'Stratovolcano',
+      EruptionData: [
+        [
+      { Year: "1810-1820", EruptionCount: 60 },
+      { Year: "1820-1830", EruptionCount: 96 },
+      { Year: "1830-1840", EruptionCount: 84 },
+      { Year: "1840-1850", EruptionCount: 120 },
+      { Year: "1850-1860", EruptionCount: 133 },
+      { Year: "1860-1870", EruptionCount: 136 },
+      { Year: "1870-1880", EruptionCount: 116 },
+      { Year: "1880-1890", EruptionCount: 161 },
+      { Year: "1890-1900", EruptionCount: 137 },
+      { Year: "1900-1910", EruptionCount: 181 },
+      { Year: "1910-1920", EruptionCount: 154 },
+      { Year: "1920-1930", EruptionCount: 201 },
+      { Year: "1930-1940", EruptionCount: 177 },
+      { Year: "1940-1950", EruptionCount: 147 },
+      { Year: "1950-1960", EruptionCount: 203 },
+      { Year: "1960-1970", EruptionCount: 189 },
+      { Year: "1970-1980", EruptionCount: 199 },
+      { Year: "1980-1990", EruptionCount: 211 },
+      { Year: "1990-2000", EruptionCount: 227 },
+      { Year: "2000-2010", EruptionCount: 234 },
+      { Year: "2010-2020", EruptionCount: 182 },
+    ],
+        [
+          { Year: "1810-1820", EruptionCount: 17 },
+          { Year: "1820-1830", EruptionCount: 14 },
+          { Year: "1830-1840", EruptionCount: 9 },
+          { Year: "1840-1850", EruptionCount: 18 },
+          { Year: "1850-1860", EruptionCount: 17 },
+          { Year: "1860-1870", EruptionCount: 17 },
+          { Year: "1870-1880", EruptionCount: 29 },
+          { Year: "1880-1890", EruptionCount: 17 },
+          { Year: "1890-1900", EruptionCount: 33 },
+          { Year: "1900-1910", EruptionCount: 43 },
+          { Year: "1910-1920", EruptionCount: 22 },
+          { Year: "1920-1930", EruptionCount: 28 },
+          { Year: "1930-1940", EruptionCount: 30 },
+          { Year: "1940-1950", EruptionCount: 29 },
+          { Year: "1950-1960", EruptionCount: 44 },
+          { Year: "1960-1970", EruptionCount: 36 },
+          { Year: "1970-1980", EruptionCount: 31 },
+          { Year: "1980-1990", EruptionCount: 17 },
+          { Year: "1990-2000", EruptionCount: 20 },
+          { Year: "2000-2010", EruptionCount: 33 },
+          { Year: "2010-2020", EruptionCount: 24 },
+        ],
+        [
+          { Year: "1810-1820", EruptionCount: 8 },
+          { Year: "1820-1830", EruptionCount: 20 },
+          { Year: "1830-1840", EruptionCount: 11 },
+          { Year: "1840-1850", EruptionCount: 7 },
+          { Year: "1850-1860", EruptionCount: 18 },
+          { Year: "1860-1870", EruptionCount: 5 },
+          { Year: "1870-1880", EruptionCount: 11 },
+          { Year: "1880-1890", EruptionCount: 16 },
+          { Year: "1890-1900", EruptionCount: 13 },
+          { Year: "1900-1910", EruptionCount: 24 },
+          { Year: "1910-1920", EruptionCount: 22 },
+          { Year: "1920-1930", EruptionCount: 26 },
+          { Year: "1930-1940", EruptionCount: 35 },
+          { Year: "1940-1950", EruptionCount: 38 },
+          { Year: "1950-1960", EruptionCount: 47 },
+          { Year: "1960-1970", EruptionCount: 32 },
+          { Year: "1970-1980", EruptionCount: 36 },
+          { Year: "1980-1990", EruptionCount: 24 },
+          { Year: "1990-2000", EruptionCount: 28 },
+          { Year: "2000-2010", EruptionCount: 28 },
+          { Year: "2010-2020", EruptionCount: 20 },
+        ],
+        [
+          { Year: "1810-1820", EruptionCount: 0 },
+          { Year: "1820-1830", EruptionCount: 0 },
+          { Year: "1830-1840", EruptionCount: 0 },
+          { Year: "1840-1850", EruptionCount: 2 },
+          { Year: "1850-1860", EruptionCount: 0 },
+          { Year: "1860-1870", EruptionCount: 2 },
+          { Year: "1870-1880", EruptionCount: 1 },
+          { Year: "1880-1890", EruptionCount: 2 },
+          { Year: "1890-1900", EruptionCount: 4 },
+          { Year: "1900-1910", EruptionCount: 3 },
+          { Year: "1910-1920", EruptionCount: 3 },
+          { Year: "1920-1930", EruptionCount: 4 },
+          { Year: "1930-1940", EruptionCount: 2 },
+          { Year: "1940-1950", EruptionCount: 5 },
+          { Year: "1950-1960", EruptionCount: 6 },
+          { Year: "1960-1970", EruptionCount: 6 },
+          { Year: "1970-1980", EruptionCount: 3 },
+          { Year: "1980-1990", EruptionCount: 1 },
+          { Year: "1990-2000", EruptionCount: 3 },
+          { Year: "2000-2010", EruptionCount: 0 },
+          { Year: "2010-2020", EruptionCount: 0 },
+        ],
+      ],
     };
   },
   methods: {

@@ -12,9 +12,9 @@ module.exports = {
     },
   },
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/Volcano-Front/my-app/'
+    ? '/Volcano-Front/beta/'
     : '/',
-  outputDir: 'my-app',
+  outputDir: 'beta',
   lintOnSave: false,
   css: {
     loaderOptions: {
