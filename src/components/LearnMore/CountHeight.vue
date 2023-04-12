@@ -260,6 +260,7 @@ export default {
               },
             },
             axisLabel: {
+              interval: 0,
               fontSize: 9,
               textStyle: {
                 color: '#fff',
