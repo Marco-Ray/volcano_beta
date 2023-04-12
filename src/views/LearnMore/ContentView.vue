@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     goArticle(index) {
-      // this.$emit('setIndex', index);
+      this.$emit('setIndex', index);
       this.$router.push({ path: '/Article', query: { index } });
     },
   },

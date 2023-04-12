@@ -53,7 +53,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin: hCalc(43) wCalc(122);
-  z-index: 999;
+  z-index: 888;
 }
 
 .logo-box {

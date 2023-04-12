@@ -31,7 +31,6 @@ export default {
   data() {
     return {
       graphsList: [],
-      selectedGraph: {},
     };
   },
   methods: {
@@ -48,9 +47,6 @@ export default {
             center: true,
           });
         });
-    },
-    selectGraph(index) {
-      this.selectedGraph = this.graphsList[index];
     },
   },
   created() {

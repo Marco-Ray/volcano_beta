@@ -251,7 +251,7 @@ export default {
 
 .claim {
   position: absolute;
-  bottom: hCalc(60);
+  bottom: hCalc(-60);
   left: wCalc(120);
   color: white;
   z-index: 90;
@@ -267,8 +267,8 @@ export default {
 
 .viewMore {
   position: absolute;
-  bottom: hCalc(60);
-  right: wCalc(120);
+  bottom: hCalc(-60);
+  right: 0;
   height: hCalc(25);
   display: flex;
   flex-direction: row;

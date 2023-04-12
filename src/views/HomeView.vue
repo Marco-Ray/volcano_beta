@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container">
+    <div id="welcome" class="container">
       <div>
         <div id="title">
           <div>
@@ -12,9 +12,9 @@
         </div>
         <div class="description">
           <p>
-            The website presents dynamic data on four of
-            the world's existing volcanoes and their specific volcanoes,
-            with science as the main feature.
+            This popular science website presents dynamic data on four
+            volcanoes types and respectively volcanoes,
+            aiming to give you a glimpse of the charm of the volcanoes and our unique Earth.
           </p>
         </div>
       </div>
@@ -32,6 +32,9 @@
       >
         <img :src="IconScrolldown" alt="scroll up" class="icon scroll-up" />
       </div>
+      <div class="chart-container">
+        <count-proportion />
+      </div>
       <div id="btt-start" @click="start">START</div>
     </div>
   </div>
@@ -39,10 +42,12 @@
 
 <script>
 import IconScrolldown from '@/assets/Welcome/icon-scrolldown.svg';
+import CountProportion from '@/components/LearnMore/CountProportion.vue';
 
 export default {
   name: 'HomeView',
   components: {
+    CountProportion,
   },
   data() {
     return {
@@ -58,7 +63,7 @@ export default {
       document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth' });
     },
     scrollUp() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' });
     },
   },
 };
@@ -88,7 +93,7 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('@/assets/Welcome/bg-video-poster.png') no-repeat center;
+      //background: url('@/assets/Welcome/bg-video-poster.png') no-repeat center;
       z-index: -1;
     }
   }
@@ -135,25 +140,37 @@ export default {
   backdrop-filter: blur(14px);
   position: relative;
   scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .scroll-up-btt {
-    position: absolute;
-    top: hCalc(182);
-    left: 50%;
-    transform: translateX(-50%) rotate(180deg);
+    //position: absolute;
+    //top: hCalc(182);
+    //left: 50%;
+    transform: rotate(180deg);
+    margin-top: hCalc(140);
     width: hCalc(57);
     height: hCalc(57);
     cursor: pointer;
+    z-index: 889;
     .icon {
       width: 100%;
       height: 100%;
     }
   }
-
+  .chart-container {
+    margin: hCalc(40) 0;
+    padding: hCalc(40) 0;
+    width: calc(70%);
+    height: calc(100% - hCalc(239));
+    background-color: rgb(72, 72, 73, 0.7);
+  }
   #btt-start {
-    position: absolute;
-    left: 50%;
-    bottom: hCalc(50);
-    transform: translateX(-50%);
+    //position: absolute;
+    //left: 50%;
+    //bottom: hCalc(50);
+    //transform: translateX(-50%);
     margin-bottom: 20px;
     width: wCalc(199);
     height: wCalc(69);

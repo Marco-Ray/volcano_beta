@@ -1,3 +1,19 @@
+<!--
+  This component is the **dynamic line chart** placed in the **LearnMore** tab.
+  It is used to display the **eruption frequency in the last 2 centuries** of all volcano types.
+  the data should be set in the father component,
+  and the data format is
+  [ {Year: "2019", EruptionCount: 1, Type: "Stratovolcano"},
+    {Year: "2019", EruptionCount: 2, Type: "Shield Volcano"},
+  ]
+  In this component, the data will be grouped by the type of the volcano,
+  I provide **4 different colors for 4 different volcano types**.
+  Set the font Size:
+    xAxis: # line 247;  yAxis: # line 268;  MarkPoint(Max&Min): # line 120; Legend: # line 174;
+  Set the width and height: chartContainer: # line 18;
+  Set the pallete: # line 68;
+-->
+
 <template>
   <div ref="chartContainer" :style="{width: '100%', height: '100%'}"></div>
 </template>
@@ -11,14 +27,99 @@ export default {
   props: {
     chartTitle: {
       type: String,
-      required: true,
+      // required: true,
       default: 'Eruption Frequency', // The default value is "Eruption Frequency"
     },
-    rawData: {
-      type: Array,
-      required: true,
-      default: () => [], // The default value is an empty array
-    },
+  },
+  data() {
+    return {
+      rawData: [
+        { Type: 'Stratovolcano', Year: '1810-1820', EruptionCount: 60 },
+        { Type: 'Stratovolcano', Year: '1821-1830', EruptionCount: 96 },
+        { Type: 'Stratovolcano', Year: '1831-1840', EruptionCount: 84 },
+        { Type: 'Stratovolcano', Year: '1841-1850', EruptionCount: 120 },
+        { Type: 'Stratovolcano', Year: '1851-1860', EruptionCount: 133 },
+        { Type: 'Stratovolcano', Year: '1861-1870', EruptionCount: 136 },
+        { Type: 'Stratovolcano', Year: '1871-1880', EruptionCount: 116 },
+        { Type: 'Stratovolcano', Year: '1881-1890', EruptionCount: 161 },
+        { Type: 'Stratovolcano', Year: '1891-1900', EruptionCount: 137 },
+        { Type: 'Stratovolcano', Year: '1901-1910', EruptionCount: 181 },
+        { Type: 'Stratovolcano', Year: '1911-1920', EruptionCount: 154 },
+        { Type: 'Stratovolcano', Year: '1921-1930', EruptionCount: 201 },
+        { Type: 'Stratovolcano', Year: '1931-1940', EruptionCount: 177 },
+        { Type: 'Stratovolcano', Year: '1941-1950', EruptionCount: 147 },
+        { Type: 'Stratovolcano', Year: '1951-1960', EruptionCount: 203 },
+        { Type: 'Stratovolcano', Year: '1961-1970', EruptionCount: 189 },
+        { Type: 'Stratovolcano', Year: '1971-1980', EruptionCount: 199 },
+        { Type: 'Stratovolcano', Year: '1981-1990', EruptionCount: 211 },
+        { Type: 'Stratovolcano', Year: '1991-2000', EruptionCount: 227 },
+        { Type: 'Stratovolcano', Year: '2001-2010', EruptionCount: 234 },
+        { Type: 'Stratovolcano', Year: '2011-2020', EruptionCount: 182 },
+        { Type: 'Shield', Year: '1810-1820', EruptionCount: 17 },
+        { Type: 'Shield', Year: '1821-1830', EruptionCount: 14 },
+        { Type: 'Shield', Year: '1831-1840', EruptionCount: 9 },
+        { Type: 'Shield', Year: '1841-1850', EruptionCount: 18 },
+        { Type: 'Shield', Year: '1851-1860', EruptionCount: 17 },
+        { Type: 'Shield', Year: '1861-1870', EruptionCount: 17 },
+        { Type: 'Shield', Year: '1871-1880', EruptionCount: 29 },
+        { Type: 'Shield', Year: '1881-1890', EruptionCount: 17 },
+        { Type: 'Shield', Year: '1891-1900', EruptionCount: 33 },
+        { Type: 'Shield', Year: '1901-1910', EruptionCount: 43 },
+        { Type: 'Shield', Year: '1911-1920', EruptionCount: 22 },
+        { Type: 'Shield', Year: '1921-1930', EruptionCount: 28 },
+        { Type: 'Shield', Year: '1931-1940', EruptionCount: 30 },
+        { Type: 'Shield', Year: '1941-1950', EruptionCount: 29 },
+        { Type: 'Shield', Year: '1951-1960', EruptionCount: 44 },
+        { Type: 'Shield', Year: '1961-1970', EruptionCount: 36 },
+        { Type: 'Shield', Year: '1971-1980', EruptionCount: 31 },
+        { Type: 'Shield', Year: '1981-1990', EruptionCount: 17 },
+        { Type: 'Shield', Year: '1991-2000', EruptionCount: 20 },
+        { Type: 'Shield', Year: '2001-2010', EruptionCount: 33 },
+        { Type: 'Shield', Year: '2011-2020', EruptionCount: 24 },
+        { Type: 'Caldera', Year: '1810-1820', EruptionCount: 8 },
+        { Type: 'Caldera', Year: '1821-1830', EruptionCount: 20 },
+        { Type: 'Caldera', Year: '1831-1840', EruptionCount: 11 },
+        { Type: 'Caldera', Year: '1841-1850', EruptionCount: 7 },
+        { Type: 'Caldera', Year: '1851-1860', EruptionCount: 18 },
+        { Type: 'Caldera', Year: '1861-1870', EruptionCount: 5 },
+        { Type: 'Caldera', Year: '1871-1880', EruptionCount: 11 },
+        { Type: 'Caldera', Year: '1881-1890', EruptionCount: 16 },
+        { Type: 'Caldera', Year: '1891-1900', EruptionCount: 13 },
+        { Type: 'Caldera', Year: '1901-1910', EruptionCount: 24 },
+        { Type: 'Caldera', Year: '1911-1920', EruptionCount: 22 },
+        { Type: 'Caldera', Year: '1921-1930', EruptionCount: 26 },
+        { Type: 'Caldera', Year: '1931-1940', EruptionCount: 35 },
+        { Type: 'Caldera', Year: '1941-1950', EruptionCount: 38 },
+        { Type: 'Caldera', Year: '1951-1960', EruptionCount: 47 },
+        { Type: 'Caldera', Year: '1961-1970', EruptionCount: 32 },
+        { Type: 'Caldera', Year: '1971-1980', EruptionCount: 36 },
+        { Type: 'Caldera', Year: '1981-1990', EruptionCount: 24 },
+        { Type: 'Caldera', Year: '1991-2000', EruptionCount: 28 },
+        { Type: 'Caldera', Year: '2001-2010', EruptionCount: 28 },
+        { Type: 'Caldera', Year: '2011-2020', EruptionCount: 20 },
+        { Type: 'PyroclasticCone', Year: '1810-1820', EruptionCount: 0 },
+        { Type: 'PyroclasticCone', Year: '1821-1830', EruptionCount: 0 },
+        { Type: 'PyroclasticCone', Year: '1831-1840', EruptionCount: 0 },
+        { Type: 'PyroclasticCone', Year: '1841-1850', EruptionCount: 2 },
+        { Type: 'PyroclasticCone', Year: '1851-1860', EruptionCount: 0 },
+        { Type: 'PyroclasticCone', Year: '1861-1870', EruptionCount: 2 },
+        { Type: 'PyroclasticCone', Year: '1871-1880', EruptionCount: 1 },
+        { Type: 'PyroclasticCone', Year: '1881-1890', EruptionCount: 2 },
+        { Type: 'PyroclasticCone', Year: '1891-1900', EruptionCount: 4 },
+        { Type: 'PyroclasticCone', Year: '1901-1910', EruptionCount: 3 },
+        { Type: 'PyroclasticCone', Year: '1911-1920', EruptionCount: 3 },
+        { Type: 'PyroclasticCone', Year: '1921-1930', EruptionCount: 4 },
+        { Type: 'PyroclasticCone', Year: '1931-1940', EruptionCount: 2 },
+        { Type: 'PyroclasticCone', Year: '1941-1950', EruptionCount: 5 },
+        { Type: 'PyroclasticCone', Year: '1951-1960', EruptionCount: 6 },
+        { Type: 'PyroclasticCone', Year: '1961-1970', EruptionCount: 6 },
+        { Type: 'PyroclasticCone', Year: '1971-1980', EruptionCount: 3 },
+        { Type: 'PyroclasticCone', Year: '1981-1990', EruptionCount: 1 },
+        { Type: 'PyroclasticCone', Year: '1991-2000', EruptionCount: 3 },
+        { Type: 'PyroclasticCone', Year: '2001-2010', EruptionCount: 0 },
+        { Type: 'PyroclasticCone', Year: '2011-2020', EruptionCount: 0 },
+      ],
+    };
   },
   // The lifecycle hook of the component
   mounted() {
@@ -167,19 +268,34 @@ export default {
         toolbox: {
           show: true,
           orient: 'vertical',
-          left: '5%',
+          left: 'auto',
           top: 'center',
           itemSize: 30,
-          /* textStyle: {
-            color: '#fff',
-            fontSize: 50,
-          }, */
+          emphasis: {
+            iconStyle: {
+              borderColor: '#bf5f40', // 设置边框颜色
+              borderWidth: 2, // 设置边框宽度
+              color: '#ffffff', // 设置图标颜色
+              shadowBlur: 5, // 设置阴影模糊度
+              shadowColor: '#d08c67', // 设置阴影颜色
+              shadowOffsetX: 0, // 设置阴影水平偏移
+              shadowOffsetY: 0, // 设置阴影垂直偏移
+            },
+          },
           iconStyle: {
             borderColor: '#fff',
           },
           feature: {
-            mark: { show: true },
+            mark: {
+              show: true,
+              title: {
+                mark: 'Mark',
+                markUndo: 'Undo Mark',
+                markClear: 'Clear Mark',
+              },
+            },
             dataView: {
+              title: 'Data View',
               show: true,
               readOnly: false,
               optionToContent: this.optionToContent,
@@ -191,11 +307,23 @@ export default {
             },
             magicType: {
               show: true,
+              title: {
+                line: 'Line Chart',
+                bar: 'Bar Chart',
+                stack: 'Stacked Bar Chart',
+                tiled: 'Tiled Bar Chart',
+              },
               type: ['bar', 'stack'],
               default: 'stack',
             },
-            restore: { show: true },
-            saveAsImage: { show: true },
+            restore: {
+              show: true,
+              title: 'Restore',
+            },
+            saveAsImage: {
+              show: true,
+              title: 'Save as Image',
+            },
             // Share to Twitter
             myTool: {
               show: true,
@@ -230,6 +358,13 @@ export default {
               color: '#fff',
               fontSize: 16, // ***The font size of the x-axis label***
             },
+            /* formatter: (value,index) =>{
+              if (index === 0 || index === this.rawData.length - 1)// The first and last data point are displayed
+               {
+                return value;
+              }
+              return "";
+            }, */
           },
           data: this.uniqueYears,
         },
@@ -253,10 +388,6 @@ export default {
         series, // The series data
       };
       chart.setOption(option);
-
-      window.addEventListener('resize', () => {
-        chart.resize();
-      });
     },
   },
 };
