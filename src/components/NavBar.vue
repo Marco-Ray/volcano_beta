@@ -21,23 +21,88 @@
         <el-menu-item index="4" :route="{ path: '/LearnMore' }">Learn More</el-menu-item>
       </el-menu>
     </div>
+
+    <div class="mobile-menu">
+      <div class="icon-menu-box" @click="triggerMobileMenu">
+        <img :src="IconMenu" alt="menu" class="icon-menu"/>
+      </div>
+
+      <div class="mobile-menu__menu" v-show="isShowMobileMenu">
+        <div style="margin: 0 16px">
+          <div class="router-box about">
+            <router-link :to="{ path: '/' }" class="router-title" @click.prevent="isShowMobileMenu = false">Home</router-link>
+          </div>
+
+          <div class="router-box about">
+            <router-link :to="{ path: '/overview' }" class="router-title" @click.prevent="isShowMobileMenu = false">Overview</router-link>
+          </div>
+
+          <div class="router-box about">
+            <div class="router-title showcase">Volcanoes</div>
+
+            <div class="subtitle-box">
+              <div class="router-box">
+                <router-link :to="{ path: '/Volcano/Stratovolcano' }" class="router-subtitle" @click.prevent="isShowMobileMenu = false">Stratovolcano</router-link>
+              </div>
+              <div class="router-box">
+                <router-link :to="{ path: '/Volcano/Shield' }" class="router-subtitle" @click.prevent="isShowMobileMenu = false">Shield</router-link>
+              </div>
+              <div class="router-box">
+                <router-link :to="{ path: '/Volcano/Caldera' }" class="router-subtitle" @click.prevent="isShowMobileMenu = false">Caldera</router-link>
+              </div>
+              <div class="router-box">
+                <router-link :to="{ path: '/Volcano/Pyroclastic%20cone' }" class="router-subtitle" @click.prevent="isShowMobileMenu = false">Pyroclastic cone</router-link>
+              </div>
+            </div>
+          </div>
+
+          <div class="router-box about">
+            <router-link :to="{ path: '/LearnMore' }" class="router-title" @click.prevent="isShowMobileMenu = false">Learn More</router-link>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Logo from '@/assets/Welcome/Logo.svg';
+import IconMenu from '@/assets/Nav/icon-menu.svg';
+
+const preD = function (e) {
+  e.preventDefault();
+};
 
 export default {
   name: 'NavBar',
   data() {
     return {
       Logo: Logo,
+      IconMenu: IconMenu,
+      isShowMobileMenu: false,
     };
   },
   methods: {
     goHome() {
       this.$router.push('/');
     },
+    triggerMobileMenu() {
+      this.isShowMobileMenu = !this.isShowMobileMenu;
+    },
+  },
+  watch: {
+    // 监听弹出框状态，控制是否禁止页面滑动
+    isShowMobileMenu(flag) {
+      if (flag) {
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('touchmove', preD, { passive: false }); // 禁止页面滑动
+      } else {
+        document.body.style.overflow = ''; // 出现滚动条
+        document.removeEventListener('touchmove', preD, { passive: false });
+      }
+    },
+
   },
 };
 </script>
@@ -122,5 +187,104 @@ export default {
 
 ::v-deep .el-menu--horizontal {
   border-bottom: unset !important;
+}
+
+.mobile-menu {
+  display: none;
+  .mobile-menu__menu {
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin-top: hCalc(-41);
+    margin-left: wCalc(-122);
+    padding-top: hCalcM(130);
+    background: rgb(191, 95, 64);
+    .router-box {
+      &.about {
+        margin-bottom: hCalcM(40);
+      }
+      margin-bottom: hCalcM(4);
+    }
+    .router-title {
+      font-family: Helvetica;
+      font-size: fSizeCalc(28);
+      font-weight: 400;
+      line-height: fSizeCalc(28);
+      color: white;
+      text-decoration: none;
+      &.showcase {
+        margin-bottom: hCalcM(16);;
+      }
+    }
+    .subtitle-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .router-subtitle {
+      font-family: Helvetica Light;
+      font-size: fSizeCalc(18);
+      font-weight: 400;
+      line-height: fSizeCalc(28);
+      color: white;
+      text-decoration: none;
+    }
+    .social-media-box {
+      position: absolute;
+      bottom: hCalcM(62);
+      .link {
+        margin-bottom: hCalcM(7);
+      }
+
+    }
+    .social-media-link {
+      font-family: Helvetica;
+      font-size: fSizeCalc(21);
+      line-height: fSizeCalc(28);
+      margin-bottom: hCalcM(20);
+    }
+    a {
+      font-family: Helvetica Light;
+      font-size: fSizeCalc(16);
+      font-weight: 400;
+      line-height: fSizeCalc(20);
+      letter-spacing: fSizeCalc(-0.44);
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+// mobile
+@media screen and (max-width: 414px) {
+  .menu-box {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  ::v-deep .el-popper {
+    &.is-light {
+      background-color: transparent !important;
+    }
+  }
+
+  ::v-deep .el-sub-menu__title {
+    font-size: fSizeCalc(16) !important;
+  }
+
+  .el-menu--popup {
+    .el-menu-item {
+      font-size: fSizeCalc(16);
+    }
+  }
+
+  .el-menu-item {
+    font-size: fSizeCalc(16);
+  }
 }
 </style>

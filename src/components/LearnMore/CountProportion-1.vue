@@ -18,7 +18,6 @@ export default {
   props: {
     chartTitle: {
       type: String,
-      // required: true,
       default: 'The proportion of different vocalno types',
     },
   },
@@ -109,7 +108,7 @@ export default {
 
       const radius2 = [`${Number(radius[1].split('%')[0]) + 0}%`, `${Number(radius[1].split('%')[0]) + 8}%`];
       // The radius of the second ring of the chart
-      const radius3 = [`${Number(radius[1].split('%')[0]) + 8}%`, `${Number(radius[1].split('%')[0]) + 16}%`];
+      const radius3 = [`${Number(radius[1].split('%')[0]) + 8}%`, `${Number(radius[1].split('%')[0]) + 20}%`];
       // The radius of the third ring of the chart
 
       const option = {
@@ -130,7 +129,8 @@ export default {
           bottom: 'auto',
           padding: [5, 10, 5, 10],
           itemGap: 10,
-          type: 'scroll',
+          type: 'plain',
+          top: 'auto',
           itemWidth: 40,
           textStyle: {
             color: '#fff',
@@ -197,6 +197,7 @@ export default {
           // middle ring
           {
             type: 'pie',
+            silent: true,
             radius: radius2,
             center: ['50%', '50%'],
             hoverAnimation: false,
@@ -219,6 +220,7 @@ export default {
           // inside ring
           {
             type: 'pie',
+            silent: true,
             radius,
             center: ['50%', '50%'],
             hoverAnimation: false,

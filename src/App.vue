@@ -25,6 +25,17 @@ export default {
       BgVideo: BgVideo,
     };
   },
+  methods: {
+    printCat() {
+      console.log(' /\\_/\\');
+      console.log('( o.o )');
+      console.log(' > ^ <');
+      console.log('');
+    },
+  },
+  created() {
+    this.printCat();
+  },
 };
 </script>
 
@@ -58,6 +69,12 @@ html, body {
   min-width: 100%;
   min-height: 100%;
   z-index: -1;
+}
+
+@media screen and (max-width: 414px) {
+  html, body {
+    font-size: 20px;
+  }
 }
 
 // fade transition

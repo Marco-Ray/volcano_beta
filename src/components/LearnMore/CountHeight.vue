@@ -260,7 +260,7 @@ export default {
               },
             },
             axisLabel: {
-              interval: 0,
+              interval: 0, // X轴显示完全
               fontSize: 9,
               textStyle: {
                 color: '#fff',
@@ -460,6 +460,10 @@ export default {
       };
       this.chart.setOption(option);
       this.updateAxisLabelFontSize();
+
+      window.addEventListener('resize', () => {
+        this.chart.resize();
+      });
     },
   },
 };

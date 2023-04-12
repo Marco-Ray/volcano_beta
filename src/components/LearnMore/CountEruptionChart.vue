@@ -388,6 +388,10 @@ export default {
         series, // The series data
       };
       chart.setOption(option);
+
+      window.addEventListener('resize', () => {
+        chart.resize();
+      });
     },
   },
 };

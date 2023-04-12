@@ -42,7 +42,7 @@
 
 <script>
 import IconScrolldown from '@/assets/Welcome/icon-scrolldown.svg';
-import CountProportion from '@/components/LearnMore/CountProportion.vue';
+import CountProportion from '@/components/LearnMore/CountProportion-1.vue';
 
 export default {
   name: 'HomeView',
@@ -113,7 +113,7 @@ export default {
 }
 
 #title {
-  width: 858px;
+  //width: wCalc(858);
 
   font-family: Roboto-Black;
   text-align: start;
@@ -122,7 +122,7 @@ export default {
 }
 
 .description {
-  width: 600px;
+  width: wCalc(600);
 
   font-family: union_regular;
   font-size: fSizeCalc(22);
@@ -171,7 +171,7 @@ export default {
     //left: 50%;
     //bottom: hCalc(50);
     //transform: translateX(-50%);
-    margin-bottom: 20px;
+    margin-bottom: hCalc(20);
     width: wCalc(199);
     height: wCalc(69);
     border-radius: 12px;
@@ -190,5 +190,46 @@ export default {
       border-color: rgb(191, 95, 64);
     }
   }
+}
+
+// mobile
+@media screen and (max-width: 414px) {
+  #welcome {
+    margin: 0 wCalcM(14);
+  }
+
+  #title {
+    font-size: fSizeCalc(26);
+    text-align: center;
+  }
+
+  .description {
+    width: 100%;
+    font-size: fSizeCalc(12);
+    text-align: center;
+    margin-top: hCalc(100);
+  }
+
+  .home {
+    .scroll-down-btt {
+      width: hCalcM(28);
+      height: hCalcM(28);
+      transform: translateX(-50%);
+    }
+  }
+
+  #conclusion {
+    .scroll-up-btt {
+      width: hCalcM(28);
+      height: hCalcM(28);
+    }
+    #btt-start {
+      width: wCalcM(80);
+      height: wCalcM(41);
+      line-height: wCalcM(41);
+      font-size: fSizeCalc(16);
+    }
+  }
+
 }
 </style>
