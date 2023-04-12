@@ -4,7 +4,7 @@
     <!-- nav-bar /-->
     <div class="overview">
       <div class="container">
-        <el-tabs type="card" tabPosition="left"
+        <el-tabs type="card" :tabPosition="isMobile ? 'top' : 'left'"
                  v-model="type"
         >
           <el-tab-pane
@@ -74,98 +74,99 @@ export default {
       type: 'Stratovolcano',
       EruptionData: [
         [
-      { Year: "1810-1820", EruptionCount: 60 },
-      { Year: "1820-1830", EruptionCount: 96 },
-      { Year: "1830-1840", EruptionCount: 84 },
-      { Year: "1840-1850", EruptionCount: 120 },
-      { Year: "1850-1860", EruptionCount: 133 },
-      { Year: "1860-1870", EruptionCount: 136 },
-      { Year: "1870-1880", EruptionCount: 116 },
-      { Year: "1880-1890", EruptionCount: 161 },
-      { Year: "1890-1900", EruptionCount: 137 },
-      { Year: "1900-1910", EruptionCount: 181 },
-      { Year: "1910-1920", EruptionCount: 154 },
-      { Year: "1920-1930", EruptionCount: 201 },
-      { Year: "1930-1940", EruptionCount: 177 },
-      { Year: "1940-1950", EruptionCount: 147 },
-      { Year: "1950-1960", EruptionCount: 203 },
-      { Year: "1960-1970", EruptionCount: 189 },
-      { Year: "1970-1980", EruptionCount: 199 },
-      { Year: "1980-1990", EruptionCount: 211 },
-      { Year: "1990-2000", EruptionCount: 227 },
-      { Year: "2000-2010", EruptionCount: 234 },
-      { Year: "2010-2020", EruptionCount: 182 },
-    ],
-        [
-          { Year: "1810-1820", EruptionCount: 17 },
-          { Year: "1820-1830", EruptionCount: 14 },
-          { Year: "1830-1840", EruptionCount: 9 },
-          { Year: "1840-1850", EruptionCount: 18 },
-          { Year: "1850-1860", EruptionCount: 17 },
-          { Year: "1860-1870", EruptionCount: 17 },
-          { Year: "1870-1880", EruptionCount: 29 },
-          { Year: "1880-1890", EruptionCount: 17 },
-          { Year: "1890-1900", EruptionCount: 33 },
-          { Year: "1900-1910", EruptionCount: 43 },
-          { Year: "1910-1920", EruptionCount: 22 },
-          { Year: "1920-1930", EruptionCount: 28 },
-          { Year: "1930-1940", EruptionCount: 30 },
-          { Year: "1940-1950", EruptionCount: 29 },
-          { Year: "1950-1960", EruptionCount: 44 },
-          { Year: "1960-1970", EruptionCount: 36 },
-          { Year: "1970-1980", EruptionCount: 31 },
-          { Year: "1980-1990", EruptionCount: 17 },
-          { Year: "1990-2000", EruptionCount: 20 },
-          { Year: "2000-2010", EruptionCount: 33 },
-          { Year: "2010-2020", EruptionCount: 24 },
+          { Year: '1810-1820', EruptionCount: 60 },
+          { Year: '1820-1830', EruptionCount: 96 },
+          { Year: '1830-1840', EruptionCount: 84 },
+          { Year: '1840-1850', EruptionCount: 120 },
+          { Year: '1850-1860', EruptionCount: 133 },
+          { Year: '1860-1870', EruptionCount: 136 },
+          { Year: '1870-1880', EruptionCount: 116 },
+          { Year: '1880-1890', EruptionCount: 161 },
+          { Year: '1890-1900', EruptionCount: 137 },
+          { Year: '1900-1910', EruptionCount: 181 },
+          { Year: '1910-1920', EruptionCount: 154 },
+          { Year: '1920-1930', EruptionCount: 201 },
+          { Year: '1930-1940', EruptionCount: 177 },
+          { Year: '1940-1950', EruptionCount: 147 },
+          { Year: '1950-1960', EruptionCount: 203 },
+          { Year: '1960-1970', EruptionCount: 189 },
+          { Year: '1970-1980', EruptionCount: 199 },
+          { Year: '1980-1990', EruptionCount: 211 },
+          { Year: '1990-2000', EruptionCount: 227 },
+          { Year: '2000-2010', EruptionCount: 234 },
+          { Year: '2010-2020', EruptionCount: 182 },
         ],
         [
-          { Year: "1810-1820", EruptionCount: 8 },
-          { Year: "1820-1830", EruptionCount: 20 },
-          { Year: "1830-1840", EruptionCount: 11 },
-          { Year: "1840-1850", EruptionCount: 7 },
-          { Year: "1850-1860", EruptionCount: 18 },
-          { Year: "1860-1870", EruptionCount: 5 },
-          { Year: "1870-1880", EruptionCount: 11 },
-          { Year: "1880-1890", EruptionCount: 16 },
-          { Year: "1890-1900", EruptionCount: 13 },
-          { Year: "1900-1910", EruptionCount: 24 },
-          { Year: "1910-1920", EruptionCount: 22 },
-          { Year: "1920-1930", EruptionCount: 26 },
-          { Year: "1930-1940", EruptionCount: 35 },
-          { Year: "1940-1950", EruptionCount: 38 },
-          { Year: "1950-1960", EruptionCount: 47 },
-          { Year: "1960-1970", EruptionCount: 32 },
-          { Year: "1970-1980", EruptionCount: 36 },
-          { Year: "1980-1990", EruptionCount: 24 },
-          { Year: "1990-2000", EruptionCount: 28 },
-          { Year: "2000-2010", EruptionCount: 28 },
-          { Year: "2010-2020", EruptionCount: 20 },
+          { Year: '1810-1820', EruptionCount: 17 },
+          { Year: '1820-1830', EruptionCount: 14 },
+          { Year: '1830-1840', EruptionCount: 9 },
+          { Year: '1840-1850', EruptionCount: 18 },
+          { Year: '1850-1860', EruptionCount: 17 },
+          { Year: '1860-1870', EruptionCount: 17 },
+          { Year: '1870-1880', EruptionCount: 29 },
+          { Year: '1880-1890', EruptionCount: 17 },
+          { Year: '1890-1900', EruptionCount: 33 },
+          { Year: '1900-1910', EruptionCount: 43 },
+          { Year: '1910-1920', EruptionCount: 22 },
+          { Year: '1920-1930', EruptionCount: 28 },
+          { Year: '1930-1940', EruptionCount: 30 },
+          { Year: '1940-1950', EruptionCount: 29 },
+          { Year: '1950-1960', EruptionCount: 44 },
+          { Year: '1960-1970', EruptionCount: 36 },
+          { Year: '1970-1980', EruptionCount: 31 },
+          { Year: '1980-1990', EruptionCount: 17 },
+          { Year: '1990-2000', EruptionCount: 20 },
+          { Year: '2000-2010', EruptionCount: 33 },
+          { Year: '2010-2020', EruptionCount: 24 },
         ],
         [
-          { Year: "1810-1820", EruptionCount: 0 },
-          { Year: "1820-1830", EruptionCount: 0 },
-          { Year: "1830-1840", EruptionCount: 0 },
-          { Year: "1840-1850", EruptionCount: 2 },
-          { Year: "1850-1860", EruptionCount: 0 },
-          { Year: "1860-1870", EruptionCount: 2 },
-          { Year: "1870-1880", EruptionCount: 1 },
-          { Year: "1880-1890", EruptionCount: 2 },
-          { Year: "1890-1900", EruptionCount: 4 },
-          { Year: "1900-1910", EruptionCount: 3 },
-          { Year: "1910-1920", EruptionCount: 3 },
-          { Year: "1920-1930", EruptionCount: 4 },
-          { Year: "1930-1940", EruptionCount: 2 },
-          { Year: "1940-1950", EruptionCount: 5 },
-          { Year: "1950-1960", EruptionCount: 6 },
-          { Year: "1960-1970", EruptionCount: 6 },
-          { Year: "1970-1980", EruptionCount: 3 },
-          { Year: "1980-1990", EruptionCount: 1 },
-          { Year: "1990-2000", EruptionCount: 3 },
-          { Year: "2000-2010", EruptionCount: 0 },
-          { Year: "2010-2020", EruptionCount: 0 },
+          { Year: '1810-1820', EruptionCount: 8 },
+          { Year: '1820-1830', EruptionCount: 20 },
+          { Year: '1830-1840', EruptionCount: 11 },
+          { Year: '1840-1850', EruptionCount: 7 },
+          { Year: '1850-1860', EruptionCount: 18 },
+          { Year: '1860-1870', EruptionCount: 5 },
+          { Year: '1870-1880', EruptionCount: 11 },
+          { Year: '1880-1890', EruptionCount: 16 },
+          { Year: '1890-1900', EruptionCount: 13 },
+          { Year: '1900-1910', EruptionCount: 24 },
+          { Year: '1910-1920', EruptionCount: 22 },
+          { Year: '1920-1930', EruptionCount: 26 },
+          { Year: '1930-1940', EruptionCount: 35 },
+          { Year: '1940-1950', EruptionCount: 38 },
+          { Year: '1950-1960', EruptionCount: 47 },
+          { Year: '1960-1970', EruptionCount: 32 },
+          { Year: '1970-1980', EruptionCount: 36 },
+          { Year: '1980-1990', EruptionCount: 24 },
+          { Year: '1990-2000', EruptionCount: 28 },
+          { Year: '2000-2010', EruptionCount: 28 },
+          { Year: '2010-2020', EruptionCount: 20 },
+        ],
+        [
+          { Year: '1810-1820', EruptionCount: 0 },
+          { Year: '1820-1830', EruptionCount: 0 },
+          { Year: '1830-1840', EruptionCount: 0 },
+          { Year: '1840-1850', EruptionCount: 2 },
+          { Year: '1850-1860', EruptionCount: 0 },
+          { Year: '1860-1870', EruptionCount: 2 },
+          { Year: '1870-1880', EruptionCount: 1 },
+          { Year: '1880-1890', EruptionCount: 2 },
+          { Year: '1890-1900', EruptionCount: 4 },
+          { Year: '1900-1910', EruptionCount: 3 },
+          { Year: '1910-1920', EruptionCount: 3 },
+          { Year: '1920-1930', EruptionCount: 4 },
+          { Year: '1930-1940', EruptionCount: 2 },
+          { Year: '1940-1950', EruptionCount: 5 },
+          { Year: '1950-1960', EruptionCount: 6 },
+          { Year: '1960-1970', EruptionCount: 6 },
+          { Year: '1970-1980', EruptionCount: 3 },
+          { Year: '1980-1990', EruptionCount: 1 },
+          { Year: '1990-2000', EruptionCount: 3 },
+          { Year: '2000-2010', EruptionCount: 0 },
+          { Year: '2010-2020', EruptionCount: 0 },
         ],
       ],
+      isMobile: this.$store.state.isMobile,
     };
   },
   methods: {
@@ -198,7 +199,6 @@ export default {
 }
 
 .el-tabs {
-  //display: none;
   height: 100%;
   ::v-deep .el-tabs__nav-wrap {
     padding: 0 !important;
@@ -215,7 +215,7 @@ export default {
       height: hCalc(176);
       background-color: rgb(151, 151, 151);
       text-align: center;
-      line-height: 166px;
+      line-height: hCalc(166);
       font-family: union_regular;
       font-size: fSizeCalc(15);
       color: white;
@@ -284,6 +284,54 @@ export default {
     .icon {
       height: 100%;
     }
+  }
+}
+
+// mobile
+@media screen and (max-width: 414px) {
+  .el-tabs {
+    width: 100%;
+    ::v-deep .el-tabs__header {
+      height: unset;
+    }
+    ::v-deep .el-tabs__nav-wrap {
+      .el-tabs__nav {
+        border: unset !important;
+        &.is-top {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
+      .el-tabs__item {
+        width: hCalcM(70);
+        height: hCalcM(70);
+        padding: 0 !important;
+        line-height: unset;
+      }
+    }
+  }
+
+  .custom-tabs-label {
+    .icon-box {
+      .vType-icon {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .tab-title {
+      display: none;
+    }
+  }
+
+  .claim {
+    font-size: fSizeCalc(10);
+    left: 0;
+    bottom: hCalcM(-70);
+  }
+
+  .viewMore {
+    bottom: hCalc(-50);
+    font-size: fSizeCalc(16);
   }
 }
 </style>

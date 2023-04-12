@@ -25,7 +25,7 @@
       <div class="title">Emission Frequency</div>
        <div class="card__content">
          <eruption-line-chart
-           v-if="showChart"
+           v-if="isMobile ? true : showChart"
            :key="index"
            :raw-data="data"
            chart-title="1"
@@ -90,6 +90,7 @@ export default {
       showChart: false,
       VolcanoPlaceholder: VolcanoPlaceholder,
       activedCard: 0,
+      isMobile: this.$store.state.isMobile,
     };
   },
   methods: {
@@ -145,31 +146,31 @@ export default {
   }
 
   .title {
-    margin-top: 37px;
-    width: 438px;
-    height: 112px;
+    margin-top: hCalc(37);
+    width: hCalc(438);
+    height: hCalc(112);
     font-family: Roboto-Black;
-    font-size: 35px;
+    font-size: fSizeCalc(35);
     text-align: center;
 
     &.countries {
-      padding-left: 40px;
+      padding-left: wCalc(40);
       text-align: left;
     }
   }
 
   .features {
-    padding: 0 40px;
+    padding: 0 wCalc(40);
     font-family: union_regular;
-    font-size: 16px;
-    line-height: 31px;
+    font-size: fSizeCalc(16);
+    line-height: fSizeCalc(31);
     text-align: start;
   }
 
   .countries-box {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 40px;
+    padding: 0 wCalc(40);
     column-gap: hCalc(66);
     row-gap: hCalc(10);
     .icon-country {
@@ -209,19 +210,37 @@ export default {
   }
 }
 
-//@media screen and (max-width: 900px) {
-//  .category {
-//    grid-template-columns: repeat(1, 1fr);
-//    .card {
-//      border-bottom: 1px solid rgb(151, 151, 151);
-//      &:nth-child(-1) {
-//        border-right: unset;
-//      }
-//      &:hover {
-//        border-top: unset;
-//        border-left: 5px solid white;
-//      }
-//    }
-//  }
-//}
+@media screen and (max-width: 414px) {
+  .category {
+    width: 100%;
+    height:  calc(100vh - hCalc(412));
+    grid-template-columns: repeat(1, 1fr);
+    overflow-y: scroll;
+    .card {
+      width: 100%;
+      border-right: unset;
+      border-bottom: 1px solid rgb(151, 151, 151);
+      &:nth-child(-1) {
+        border-right: unset;
+      }
+    }
+    .title {
+      width: 100%;
+      font-size: fSizeCalc(20);
+    }
+    .card__content {
+      width: 100%;
+      display: block !important;
+    }
+    .features {
+      font-size: fSizeCalc(12);
+    }
+    .dynamic-chart {
+      position: static;
+      //height: hCalc(658);
+      pointer-events: visible;
+      z-index: 100;
+    }
+  }
+}
 </style>

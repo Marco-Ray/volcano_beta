@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      BgVideo: BgVideo,
+      BgVideo,
     };
   },
   methods: {
@@ -35,6 +35,13 @@ export default {
   },
   created() {
     this.printCat();
+  },
+  mounted() {
+    if (document.documentElement.clientWidth <= 414) {
+      this.$store.state.isMobile = true;
+    } else {
+      this.$store.state.isMobile = false;
+    }
   },
 };
 </script>
