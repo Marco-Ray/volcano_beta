@@ -168,7 +168,7 @@ export default {
       },
       rules: {
         vName: [{ required: true, message: 'Please input Volcano\'s name', trigger: 'blur' }],
-        eDesc: [{ required: true, trigger: 'blur' }],
+        eDesc: [{ required: true, message: 'Please describe the error you found.', trigger: 'blur' }],
         email: [{ required: true, trigger: 'blur' }],
       },
       typeIcon: {
@@ -598,6 +598,11 @@ export default {
 
   ::v-deep .el-dialog {
     width: 90%;
+    .my-header {
+      .dialog-title {
+        font-size: fSizeCalc(26);
+      }
+    }
   }
 }
 </style>

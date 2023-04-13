@@ -10,6 +10,7 @@
           <el-tab-pane
             v-for="(label, index) in labelOptions" :key="index"
             :name="label.type"
+            :lazy="true"
           >
             <template #label>
               <span class="custom-tabs-label">
