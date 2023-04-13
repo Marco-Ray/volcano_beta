@@ -237,6 +237,8 @@ export default {
     }
     .dynamic-chart {
       position: static;
+      //height: 100%;
+      width: calc(100vw - wCalc(244));
       //height: hCalc(658);
       pointer-events: visible;
       z-index: 100;
