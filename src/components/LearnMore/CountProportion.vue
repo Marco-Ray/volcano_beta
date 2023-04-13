@@ -112,7 +112,6 @@ export default {
       // The radius of the third ring of the chart
 
       const option = {
-        text: this.chartTitle,
         backgroundColor,
         grid: {
           top: 0,

@@ -5,10 +5,10 @@
      <div class="card card-1" @click="setActiveCard(0)"
           :class="activedCard===0 ? 'is-active' : ''"
      >
-       <div class="title">Volcano Type and Ash Composition</div>
+       <div class="title">Volcano Composition</div>
        <div class="card__content">
          <div>
-           <div class="features">{{ features }}</div>
+           <div class="features">{{ features[index] }}</div>
          </div>
          <div class="title countries">Common Distribution Countries</div>
          <div class="countries-box">
@@ -24,6 +24,9 @@
      >
       <div class="title">Emission Frequency</div>
        <div class="card__content">
+         <div>
+           This chart shows the number of eruptions of the current type of volcano in the last 200 years.
+         </div>
          <eruption-line-chart
            v-if="isMobile ? true : showChart"
            :key="index"
@@ -38,6 +41,9 @@
      >
        <div class="title">Volcano Elevation</div>
        <div class="card__content">
+         <div>
+           This chart shows the 3 highest and the 3 lowest volcanoes of the current type.
+         </div>
          <div class="chart-container-2" v-if="isMobile? true : activedCard===2">
            <component :is="elevationList[index]" />
          </div>
@@ -46,7 +52,7 @@
      <div class="cPhoto-box">
 <!--        <img v-if='!showChart' :src="imgList[index][0]" alt="" class="cPhoto" />-->
 <!--        <img v-else :src="imgList[index][1]" alt="" class="cPhoto__chart" />-->
-       <img :src="VolcanoPlaceholder" alt="" class="cPhoto__chart" />
+       <img :src="volcanoImgList[index]" alt="" class="cPhoto__chart" />
      </div>
    <!--/el-scrollbar -->
  </div>
@@ -63,7 +69,12 @@ import Ecuador from '@/assets/Overview/countries/214-ecuador.png';
 import NZ from '@/assets/Overview/countries/215-new zealand.png';
 import Kenya from '@/assets/Overview/countries/234-kenya.png';
 import Japan from '@/assets/Overview/countries/241-japan.png';
-import VolcanoPlaceholder from '@/assets/Overview/volcano-placeholder.png';
+
+import Strato from '@/assets/Overview/volcano/Stratovolcano.png';
+import Shield from '@/assets/Overview/volcano/Shield.png';
+import Caldera from '@/assets/Overview/volcano/Caldera.png';
+import Cone from '@/assets/Overview/volcano/PyroclasticCone.png';
+
 import EruptionLineChart from '@/components/Overview/EruptionLineChart.vue';
 import CompareElevationStra from '@/components/Overview/CompareElevationStra.vue';
 import CompareElevationShield from '@/components/Overview/CompareElevationShield.vue';
@@ -85,7 +96,12 @@ export default {
   },
   data() {
     return {
-      features: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      features: [
+        'Stratovolcano, also known as a composite volcano, is a conical volcano built up by many layers (strata) of hardened lava and tephra. Stratovolcanoes are characterized by a steep profile with a summit crater and periodic intervals of explosive eruptions and effusive eruptions, although some have collapsed summit craters called calderas.',
+        'A shield volcano is a type of volcano named for its low profile. Shield volcanoes are usually constructed almost entirely of basaltic and/or andesitic lava flows which were very fluid when erupted. They are built by repeated eruptions that occurred intermittently over vast periods of time (up to a million years or longer). Shield volcanoes are much wider than they are tall.',
+        'A caldera is a large depression formed when a volcano erupts and collapses. During a volcanic eruption, magma present in the magma chamber underneath the volcano is expelled, often forcefully. When the magma chamber empties, the support that the magma had provided inside the chamber disappears. As a result, the sides and top of the volcano collapse inward. Calderas vary in size from one to 100 kilometers in diameter.',
+        'A pyroclastic cone (or cinder cone) is a steep conical hill of loose pyroclastic fragments, such as volcanic clinkers, volcanic ash, or scoria that has been built around a volcanic vent. The pyroclastic fragments are formed by explosive eruptions or lava fountains from a single, typically cylindrical, vent. As the gas-charged lava is blown violently into the air, it breaks into small fragments that solidify and fall as either cinder around the vent to form a cone.',
+      ],
       imgList: [
         ['https://i.postimg.cc/zGZkGFQ7/1-2.png', 'https://i.postimg.cc/Nj6k9rqc/1-2.png'],
         ['https://i.postimg.cc/j5FH0HNz/2-2.png', 'https://i.postimg.cc/hjjL5yJD/2-2.png'],
@@ -99,7 +115,7 @@ export default {
         [Mexico, Russia, Chile, China, US],
       ],
       showChart: false,
-      VolcanoPlaceholder: VolcanoPlaceholder,
+      volcanoImgList: [Strato, Shield, Caldera, Cone],
       activedCard: 0,
       isMobile: this.$store.state.isMobile,
       elevationList: ['CompareElevationStra', 'CompareElevationShield', 'CompareElevationCaldera', 'CompareElevationCone'],

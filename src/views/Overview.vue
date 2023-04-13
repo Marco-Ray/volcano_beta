@@ -14,7 +14,7 @@
             <template #label>
               <span class="custom-tabs-label">
                 <div class="icon-box">
-                  <img :src="label.icon" alt="volcano type icon" class="vType-icon"/>
+                  <img :src="type===label.type ? label.icon : label.inactive" alt="volcano type icon" class="vType-icon"/>
                 </div>
                 <span class="tab-title">{{ label.type }}</span>
               </span>
@@ -40,10 +40,14 @@
 // import NavBar from '@/components/NavBar.vue';
 import OverviewBoard from '@/components/Overview/OverviewBoard.vue';
 import ArrowRight from '@/assets/Overview/arrow-right.png';
-import ShieldIcon from '@/assets/Overview/Shield.svg';
-import Caldera from '@/assets/Overview/Caldera.svg';
-import Stratovolcano from '@/assets/Overview/Stratovolcano.svg';
-import PyroclasticCones from '@/assets/Overview/PyroclasticCones.svg';
+import ShieldIcon from '@/assets/Overview/icon/Shield.svg';
+import Caldera from '@/assets/Overview/icon/Caldera.svg';
+import Stratovolcano from '@/assets/Overview/icon/Stratovolcano.svg';
+import PyroclasticCones from '@/assets/Overview/icon/PyroclasticCones.svg';
+import ShieldInactiveIcon from '@/assets/Overview/icon/Shield-inactive.svg';
+import CalderaInactive from '@/assets/Overview/icon/Caldera-inactive.svg';
+import StratovolcanoInactive from '@/assets/Overview/icon/Stratovolcano-inactive.svg';
+import PyroclasticConesInactive from '@/assets/Overview/icon/PyroclasticCones-inactive.svg';
 
 export default {
   name: 'OverView',
@@ -58,18 +62,22 @@ export default {
         {
           type: 'Stratovolcano',
           icon: Stratovolcano,
+          inactive: StratovolcanoInactive,
         },
         {
           type: 'Shield',
           icon: ShieldIcon,
+          inactive: ShieldInactiveIcon,
         },
         {
           type: 'Caldera',
           icon: Caldera,
+          inactive: CalderaInactive,
         },
         {
           type: 'Pyroclastic cone',
           icon: PyroclasticCones,
+          inactive: PyroclasticConesInactive,
         }],
       type: 'Stratovolcano',
       EruptionData: [

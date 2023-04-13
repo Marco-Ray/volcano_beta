@@ -6,7 +6,7 @@
           <div>
             Explore
           </div>
-          <div>
+          <div :style="{color: 'rgb(191, 95, 64)'}">
             The Volcanoes
           </div>
         </div>
@@ -33,7 +33,16 @@
         <img :src="IconScrolldown" alt="scroll up" class="icon scroll-up" />
       </div>
       <div class="chart-container">
+        <div class="description">
+          As you can see in the chart below. Stratovolcanos, Shield, Caldera and Pyroclastic
+          Cone arethe four most common types of volcano,
+          with around 90% of the world's volcanoes being of these four types.
+        </div>
         <count-proportion />
+        <div class="description">
+          Therefore, we will focus on these four types of volcanoes on this website.
+          In Overview you can get basic information on the four types of volcanoes;
+        </div>
       </div>
       <div id="btt-start" @click="start">START</div>
     </div>
@@ -53,6 +62,7 @@ export default {
     return {
       isShowVideo: true,
       IconScrolldown: IconScrolldown,
+      chartTitle: 'As you can see in the chart below. Stratovolcanos, Shield, Caldera and Pyroclastic Cone arethe four most common types of volcano, with around 90% of the world\'s volcanoes being of these four types.',
     };
   },
   methods: {
@@ -161,10 +171,25 @@ export default {
   }
   .chart-container {
     margin: hCalc(40) 0;
-    padding: hCalc(40) 0;
-    width: calc(70%);
+    padding: hCalc(20) 0;
+    width: 70%;
     height: calc(100% - hCalc(239));
     background-color: rgb(72, 72, 73, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .description {
+      width: 80%;
+      text-align: center;
+      &:nth-child(1) {
+        margin-bottom: hCalc(20);
+      }
+      &:nth-child(2) {
+        margin-top: hCalc(20);
+      }
+    }
   }
   #btt-start {
     //position: absolute;
@@ -228,6 +253,13 @@ export default {
       height: wCalcM(41);
       line-height: wCalcM(41);
       font-size: fSizeCalc(16);
+    }
+    .chart-container {
+      margin-top: hCalc(10);
+      .description {
+        width: 100%;
+        margin-top: 0;
+      }
     }
   }
 
