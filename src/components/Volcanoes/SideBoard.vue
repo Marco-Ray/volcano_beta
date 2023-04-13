@@ -121,7 +121,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-family: Roboto-Black;
-    font-size: 48px;
+    font-size: fSizeCalc(48);
   }
   .cards_grid {
     padding: 0 wCalc(100);
@@ -129,17 +129,17 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    grid-row-gap: 36px;
-    grid-column-gap: 36px;
+    grid-row-gap: hCalc(36);
+    grid-column-gap: hCalc(36);
   }
   .brief_card {
     display: none;
     cursor: pointer;
-    height: 206px;
+    height: hCalc(206);
     border-bottom: 1px solid white;
     .v_pic-box {
-      width: 240px;
-      height: 136px;
+      width: hCalc(240);
+      height: hCalc(136);
       background-color: rgb(0, 0, 0);
       &:active {
         border: 5px solid black;
@@ -155,7 +155,7 @@ export default {
       font-family: union_regular;
       font-size: 16px;
       line-height: 31px;
-      text-align: start;
+      text-align: center;
     }
   }
 
@@ -177,7 +177,7 @@ export default {
     }
   }
   ::v-deep .el-scrollbar__bar {
-    right: 10px;
+    right: wCalc(10);
     --el-scrollbar-bg-color: white;
   }
 }
@@ -196,8 +196,9 @@ export default {
   }
 }
 
-@media screen and (max-width: 1650px) {
+@media screen and (max-width: 414px) {
   .sideBoard {
+    width: calc(100% - wCalc(244));
     .cards_grid {
       grid-template-columns: 1fr;
     }
