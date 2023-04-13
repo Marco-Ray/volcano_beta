@@ -71,4 +71,24 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 414px) {
+  .item-box {
+    width: 100%;
+    &:nth-child(2n-1) {
+      border-right: unset;
+    }
+  }
+  .item {
+    width: 100%;
+    .item-title {
+      margin-top: hCalc(20);
+      font-size: fSizeCalc(20);
+    }
+    .item-cover {
+      width: 100%;
+    }
+  ;
+  }
+}
 </style>

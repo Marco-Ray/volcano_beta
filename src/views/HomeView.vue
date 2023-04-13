@@ -42,7 +42,7 @@
 
 <script>
 import IconScrolldown from '@/assets/Welcome/icon-scrolldown.svg';
-import CountProportion from '@/components/LearnMore/CountProportion-1.vue';
+import CountProportion from '@/components/LearnMore/CountProportion.vue';
 
 export default {
   name: 'HomeView',

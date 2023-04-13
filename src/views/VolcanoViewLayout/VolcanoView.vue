@@ -598,63 +598,6 @@ export default {
 
   ::v-deep .el-dialog {
     width: 90%;
-    .my-header {
-      .dialog-title {
-        font-size: fSizeCalc(30);
-        line-height: hCalc(50);
-        letter-spacing: fSizeCalc(-0.48);
-        text-align: center;
-        .icon-error-box {
-          width: hCalc(55);
-          height: hCalc(55);
-          .icon-error {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-    }
-    .el-dialog__headerbtn {
-      top: 10px !important;
-      right: 10px !important;
-      width: hCalc(40) !important;
-      height: hCalc(40) !important;
-      .el-dialog__close {
-        width: 100% !important;
-        height: 100% !important;
-        svg {
-          width: 100% !important;
-          height: 100% !important;
-        }
-      }
-      &:hover {
-        --el-color-primary: rgb(191, 95, 64) !important;
-      }
-    }
-    .el-form-item {
-      .el-form-item__label {
-        font-family: union_regular;
-        font-size: fSizeCalc(22);
-      }
-      .el-form-item__content {
-        //width: 100%;
-      }
-      .label__hint {
-        color: gray;
-        font-size: fSizeCalc(16);
-      }
-    }
-    .el-input, .el-textarea {
-      --el-border-color: #484849 !important;
-      --el-border-color-hover: #484849 !important;
-      --el-color-primary: #484849 !important;
-    }
-    .el-button--primary {
-      --el-button-bg-color: rgb(191, 95, 64) !important;
-      --el-button-border-color: rgb(191, 95, 64) !important;
-      --el-button-hover-bg-color: rgba(191, 95, 64, 80%) !important;
-      --el-button-hover-border-color: rgba(191, 95, 64, 80%) !important;
-    }
   }
 }
 </style>

@@ -127,4 +127,34 @@ export default {
   text-align: center;
   background-color: rgba(72, 72, 73, 0.7);
 }
+
+@media screen and (max-width: 414px) {
+  .back-box {
+    top: hCalcM(15);
+    .back-icon-box {
+      margin-right: wCalcM(5);
+    }
+    .back {
+      font-size: fSizeCalc(16);
+    }
+  }
+
+  .title {
+    margin-top: hCalcM(50);
+    font-size: fSizeCalc(20);
+  }
+
+  .content {
+    .g_content {
+      width: 90%;
+      font-size: fSizeCalc(14);
+    }
+  }
+
+  .chart-container {
+    margin-top: hCalcM(60);
+    margin-bottom: 0;
+    width: 90%;
+  }
+}
 </style>

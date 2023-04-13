@@ -82,4 +82,12 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 414px) {
+  .learn-more {
+    .container {
+      margin: hCalc(76) wCalc(120);
+    }
+  }
+}
 </style>
