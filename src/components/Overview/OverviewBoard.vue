@@ -257,6 +257,9 @@ export default {
       &:nth-child(-1) {
         border-right: unset;
       }
+      &.is-active {
+        border-top-color: transparent;
+      }
     }
     .title {
       width: 100%;

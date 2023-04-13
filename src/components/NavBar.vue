@@ -19,6 +19,7 @@
           <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic%20cone' }">Pyroclastic cone</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="4" :route="{ path: '/LearnMore' }">Learn More</el-menu-item>
+        <div class="el-menu-item" index="5"><a href="" target="_blank" :style="{ 'text-decoration': 'none'}">Report</a></div>
       </el-menu>
     </div>
 
@@ -58,6 +59,10 @@
 
           <div class="router-box about">
             <router-link :to="{ path: '/LearnMore' }" class="router-title" @click.prevent="isShowMobileMenu = false">Learn More</router-link>
+          </div>
+
+          <div class="router-box about">
+            <a href="" target="_blank" class="router-title">Report</a>
           </div>
 
         </div>
@@ -148,6 +153,7 @@ export default {
 ::v-deep .el-sub-menu__title {
   font-size: fSizeCalc(22) !important;
   border-radius: 12px;
+  border-bottom-color: transparent !important;
   &:hover {
     background-color: rgb(191, 95, 64) !important;
   }

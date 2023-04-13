@@ -44,6 +44,11 @@
           In Overview you can get basic information on the four types of volcanoes;
         </div>
       </div>
+
+      <div class="claim">
+        <div>* Data source: <a href="https://volcano.si.edu/" target="_blank">https://volcano.si.edu/</a></div>
+      </div>
+
       <div id="btt-start" @click="start">START</div>
     </div>
   </div>
@@ -191,6 +196,23 @@ export default {
       }
     }
   }
+
+  .claim {
+    position: absolute;
+    bottom: hCalc(100);
+    left: wCalc(300);
+    color: white;
+    z-index: 90;
+    font-family: union_regular;
+    font-size: fSizeCalc(20);
+    a {
+      color: white;
+      &:hover {
+        color: rgb(191, 95, 64);
+      }
+    }
+  }
+
   #btt-start {
     //position: absolute;
     //left: 50%;
@@ -247,6 +269,11 @@ export default {
     .scroll-up-btt {
       width: hCalcM(28);
       height: hCalcM(28);
+    }
+    .claim {
+      font-size: fSizeCalc(10);
+      left: hCalcM(60);
+      bottom: hCalcM(70);
     }
     #btt-start {
       width: wCalcM(80);

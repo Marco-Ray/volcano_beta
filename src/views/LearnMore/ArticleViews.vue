@@ -8,22 +8,28 @@
       <div class="back">Back</div>
     </div>
 <!--    <el-scrollbar v-if="selectedGraph">-->
-    <div v-if="selectedGraph">
-      <div class="title">
-        {{ selectedGraph.title }}
-      </div>
-      <div class="content">
-        <div class="g_content">
-          {{ selectedGraph.content }}
+    <div class="scroll-viewer">
+      <div v-if="selectedGraph">
+        <div class="title">
+          {{ selectedGraph.title }}
         </div>
-<!--        <iframe :src="selectedGraph.graph"-->
-<!--                :title="index" class="chart">-->
-<!--        </iframe>-->
-        <div class="chart-container">
-          <component :is="chartName[index]" />
+        <div class="content">
+          <div class="g_content">
+            {{ selectedGraph.content }}
+          </div>
+  <!--        <iframe :src="selectedGraph.graph"-->
+  <!--                :title="index" class="chart">-->
+  <!--        </iframe>-->
+          <div class="chart-container">
+            <component :is="chartName[index]" />
+          </div>
+
+          <div class="claim">
+            <div>* Data source: <a href="https://volcano.si.edu/" target="_blank">https://volcano.si.edu/</a></div>
+          </div>
         </div>
+  <!--    </el-scrollbar>-->
       </div>
-<!--    </el-scrollbar>-->
     </div>
   </div>
 </template>
@@ -31,7 +37,8 @@
 <script>
 import IconBack from '@/assets/LearnMore/icon-back.png';
 import CountEruptionChart from '@/components/LearnMore/CountEruptionChart.vue';
-import CountProportion from '@/components/LearnMore/CountProportion.vue';
+import CountDistribution from '@/components/LearnMore/CountDistribution.vue';
+import LavaSimu from '@/components/LearnMore/LavaSimu.vue';
 import CountHeight from '@/components/LearnMore/CountHeight.vue';
 
 export default {
@@ -40,15 +47,16 @@ export default {
     graphsList: Array,
   },
   components: {
+    CountDistribution,
     CountEruptionChart,
-    CountProportion,
     CountHeight,
+    LavaSimu,
   },
   data() {
     return {
       iconBack: IconBack,
       index: this.$route.query.index,
-      chartName: ['CountProportion', 'CountEruptionChart', 'CountHeight', 'CountEruptionChart'],
+      chartName: ['CountDistribution', 'LavaSimu', 'CountHeight', 'CountEruptionChart'],
     };
   },
   methods: {
@@ -128,6 +136,20 @@ export default {
   background-color: rgba(72, 72, 73, 0.7);
 }
 
+.claim {
+  margin-bottom: hCalc(50);
+  color: white;
+  z-index: 90;
+  font-family: union_regular;
+  font-size: fSizeCalc(20);
+  a {
+    color: white;
+    &:hover {
+      color: rgb(191, 95, 64);
+    }
+  }
+}
+
 @media screen and (max-width: 414px) {
   .back-box {
     top: hCalcM(15);
@@ -139,8 +161,15 @@ export default {
     }
   }
 
+  .scroll-viewer {
+    position: absolute;
+    height: calc(100% - hCalcM(60));
+    bottom: 0;
+    overflow-y: scroll;
+  }
+
   .title {
-    margin-top: hCalcM(50);
+    margin-top: 0;
     font-size: fSizeCalc(20);
   }
 
@@ -155,6 +184,11 @@ export default {
     margin-top: hCalcM(60);
     margin-bottom: 0;
     width: 90%;
+  }
+
+  .claim {
+    margin-top: hCalcM(20);
+    font-size: fSizeCalc(10);
   }
 }
 </style>
