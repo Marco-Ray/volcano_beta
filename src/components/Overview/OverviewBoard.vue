@@ -38,6 +38,9 @@
      >
        <div class="title">Volcano Elevation</div>
        <div class="card__content">
+         <div class="chart-container-2" v-if="isMobile? true : activedCard===2">
+           <component :is="elevationList[index]" />
+         </div>
        </div>
       </div>
      <div class="cPhoto-box">
@@ -62,6 +65,10 @@ import Kenya from '@/assets/Overview/countries/234-kenya.png';
 import Japan from '@/assets/Overview/countries/241-japan.png';
 import VolcanoPlaceholder from '@/assets/Overview/volcano-placeholder.png';
 import EruptionLineChart from '@/components/Overview/EruptionLineChart.vue';
+import CompareElevationStra from '@/components/Overview/CompareElevationStra.vue';
+import CompareElevationShield from '@/components/Overview/CompareElevationShield.vue';
+import CompareElevationCaldera from '@/components/Overview/CompareElevationCaldera.vue';
+import CompareElevationCone from '@/components/Overview/CompareElevationCone.vue';
 
 export default {
   name: 'OverviewBoard',
@@ -71,6 +78,10 @@ export default {
   },
   components: {
     EruptionLineChart,
+    CompareElevationStra,
+    CompareElevationShield,
+    CompareElevationCaldera,
+    CompareElevationCone,
   },
   data() {
     return {
@@ -91,6 +102,7 @@ export default {
       VolcanoPlaceholder: VolcanoPlaceholder,
       activedCard: 0,
       isMobile: this.$store.state.isMobile,
+      elevationList: ['CompareElevationStra', 'CompareElevationShield', 'CompareElevationCaldera', 'CompareElevationCone'],
     };
   },
   methods: {
@@ -135,6 +147,7 @@ export default {
       border-right: unset;
     }
     .card__content {
+      width: 100%;
       display: none;
     }
     &.is-active {
@@ -187,6 +200,11 @@ export default {
     pointer-events: visible;
     z-index: 100;
   }
+
+  .chart-container-2 {
+    width: 100%;
+    height: hCalc(458);
+  }
 }
 
 .cPhoto-box {
@@ -226,6 +244,7 @@ export default {
     }
     .title {
       width: 100%;
+      height: hCalcM(60);
       font-size: fSizeCalc(20);
     }
     .card__content {
@@ -242,6 +261,9 @@ export default {
       //height: hCalc(658);
       pointer-events: visible;
       z-index: 100;
+    }
+    .chart-container-2 {
+      margin-bottom: hCalcM(50);
     }
   }
 }
