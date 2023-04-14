@@ -11,9 +11,10 @@ module.exports = {
       },
     },
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/Volcano-Front/beta/'
-    : '/',
+  // edinburgh domains config
+  // publicPath: process.env.NODE_ENV === 'production'
+  //   ? '/Volcano-Front/beta/'
+  //   : '/',
   outputDir: 'beta',
   lintOnSave: false,
   css: {

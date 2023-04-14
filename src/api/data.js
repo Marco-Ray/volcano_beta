@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export function getVolcanoTotalNum(path) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/${path}/total`,
-    url: `/api/volcano/${path}/total`,
+    url: `/fatfree/Volcano-Back/volcano/${path}/total`,
+    // url: `/api/volcano/${path}/total`,
     method: 'get',
     urlType: 'api',
   });
@@ -11,8 +11,8 @@ export function getVolcanoTotalNum(path) {
 
 export function getVolcano(path, page) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/${path}`,
-    url: `/api/volcano/${path}`,
+    url: `/fatfree/Volcano-Back/volcano/${path}`,
+    // url: `/api/volcano/${path}`,
     params: {
       page: page,
     },
@@ -23,8 +23,8 @@ export function getVolcano(path, page) {
 
 export function likeVolcano(path) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/like/${path}`,
-    url: `/api/volcano/like/${path}`,
+    url: `/fatfree/Volcano-Back/volcano/like/${path}`,
+    // url: `/api/volcano/like/${path}`,
     method: 'put',
     urlType: 'api',
   });
@@ -32,8 +32,8 @@ export function likeVolcano(path) {
 
 export function dislikeVolcano(path) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/dislike/${path}`,
-    url: `/api/volcano/dislike/${path}`,
+    url: `/fatfree/Volcano-Back/volcano/dislike/${path}`,
+    // url: `/api/volcano/dislike/${path}`,
     method: 'put',
     urlType: 'api',
   });
@@ -41,8 +41,8 @@ export function dislikeVolcano(path) {
 
 export function getGraphs() {
   return axios({
-    // url: '/fatfree/Volcano-Back/volcano/learnmore',
-    url: '/api/volcano/learnmore',
+    url: '/fatfree/Volcano-Back/volcano/learnmore',
+    // url: '/api/volcano/learnmore',
     method: 'get',
     urlType: 'api',
   });
@@ -50,8 +50,8 @@ export function getGraphs() {
 
 export function submitForm(formData) {
   return axios({
-    // url: '/fatfree/Volcano-Back/volcano/report',
-    url: '/api/volcano/report',
+    url: '/fatfree/Volcano-Back/volcano/report',
+    // url: '/api/volcano/report',
     method: 'post',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -63,8 +63,8 @@ export function submitForm(formData) {
 
 export function searchVolcano(type, name) {
   return axios({
-    // url: `/fatfree/Volcano-Back/volcano/search/${type}/${name}`,
-    url: `/api/volcano/search/${type}/${name}`,
+    url: `/fatfree/Volcano-Back/volcano/search/${type}/${name}`,
+    // url: `/api/volcano/search/${type}/${name}`,
     method: 'get',
     urlType: 'api',
   });

@@ -19,7 +19,7 @@
           <el-menu-item index="3-4" :route="{ path: '/Volcano/Pyroclastic%20cone' }">Pyroclastic cone</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="4" :route="{ path: '/LearnMore' }">Learn More</el-menu-item>
-        <div class="el-menu-item" index="5"><a href="" target="_blank" :style="{ 'text-decoration': 'none'}">Report</a></div>
+        <div class="el-menu-item" index="5"><a :href="reportLink" target="_blank" :style="{ 'text-decoration': 'none'}">Report</a></div>
       </el-menu>
     </div>
 
@@ -86,6 +86,7 @@ export default {
       Logo: Logo,
       IconMenu: IconMenu,
       isShowMobileMenu: false,
+      reportLink: 'https://zehuan-wang.edinburgh.domains/Volcano-Front/LearnMore/Renaissance_Beta%20Prototype%20Report.pdf',
     };
   },
   methods: {

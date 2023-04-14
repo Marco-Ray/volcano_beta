@@ -22,7 +22,7 @@
      <div class="card card-2" @click="setActiveCard(1)"
           :class="activedCard===1 ? 'is-active' : ''"
      >
-      <div class="title">Emission Frequency</div>
+      <div class="title">Eruption Frequency</div>
        <div class="card__content">
          <div>
            This chart shows the number of eruptions of the current type of volcano in the last 200 years.
